@@ -1,4 +1,4 @@
-# PretaMane AWS Builder Challenge Website
+# Pretamane AWS Builder Challenge Website
 
 ## Architecture
 - **Frontend**: Static HTML/CSS/JS hosted on AWS S3
