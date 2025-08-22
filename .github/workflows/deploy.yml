@@ -17,13 +17,13 @@ jobs:
       - name: Validate HTML structure
         run: |
           # Check if essential files exist
-          if [ ! -f "index.html" ]; then
+          if [ ! -f "website-files/index.html" ]; then
             echo "❌ Error: index.html not found!"
             exit 1
           fi
           
           # Check for basic HTML structure
-          if ! grep -q "<html" index.html; then
+          if ! grep -q "<html" website-files/index.html; then
             echo "❌ Error: index.html missing HTML structure"
             exit 1
           fi
@@ -52,7 +52,7 @@ jobs:
           echo "Deploying to: pretamane-aws-builder-challenge-bucket"
           
           # Sync files to S3 with proper exclusions
-          aws s3 sync . s3://pretamane-aws-builder-challenge-bucket \
+          aws s3 sync website-files/ s3://pretamane-aws-builder-challenge-bucket \
             --delete \
             --exclude '.git/*' \
             --exclude '.github/*' \
