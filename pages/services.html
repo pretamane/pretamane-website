@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services - Thaw Zin | Cloud Engineering Solutions</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiIgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIj4KICA8cmVjdCB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIGZpbGw9IiMwZDExMTciLz4KICA8dGV4dCB4PSIxNiIgeT0iMjIiIGZvbnQtZmFtaWx5PSJtb25vc3BhY2UiIGZvbnQtc2l6ZT0iMTYiIGZvbnQtd2VpZ2h0PSJib2xkIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjZmZjYzY2Ij50ejwvdGV4dD4KPC9zdmc+">
+    <link rel="icon" type="image/x-icon" href="../favicon.ico">
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="apple-touch-icon" href="../favicon.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        :root {
+            --bg-primary: #0d1117;
+            --bg-secondary: #161b22;
+            --bg-tertiary: #21262d;
+            --text-primary: #e6edf3;
+            --text-secondary: #7d8590;
+            --accent: #ffcc66;
+            --accent-blue: #59b8ff;
+            --accent-green: #7ce38b;
+            --accent-orange: #ffae57;
+            --accent-purple: #d2a8ff;
+            --terminal-green: #3fb950;
+            --terminal-red: #ff7b72;
+            --border: #30363d;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Fira Code', 'Cascadia Code', 'Monaco', 'Consolas', monospace;
+        }
+        
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Navigation */
+        .nav {
+            background: var(--bg-secondary);
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .nav-logo {
+            color: var(--accent);
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        .nav-menu a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s;
+            position: relative;
+        }
+        
+        .nav-menu a:hover {
+            color: var(--accent-blue);
+        }
+        
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-blue);
+            transition: width 0.3s;
+        }
+        
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+        
+        /* Header styling */
+        header {
+            background: linear-gradient(to bottom, var(--bg-primary), var(--bg-secondary));
+            padding: 2rem 0;
+            text-align: center;
+            position: relative;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .terminal-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 25px;
+            background-color: var(--bg-tertiary);
+            display: flex;
+            align-items: center;
+            padding-left: 15px;
+        }
+        
+        .terminal-button {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        
+        .terminal-button.close {
+            background-color: var(--terminal-red);
+        }
+        
+        .terminal-button.minimize {
+            background-color: var(--accent-orange);
+        }
+        
+        .terminal-button.maximize {
+            background-color: var(--terminal-green);
+        }
+        
+        .header-content {
+            margin-top: 40px;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--accent);
+            text-shadow: 0 0 10px rgba(255, 204, 102, 0.3);
+        }
+        
+        .tagline {
+            font-size: 1.2rem;
+            color: var(--accent-blue);
+            margin-bottom: 1rem;
+        }
+        
+        /* Section styling */
+        section {
+            padding: 3rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .section-title {
+            margin-bottom: 2rem;
+            color: var(--accent);
+            position: relative;
+            display: inline-block;
+            padding-left: 15px;
+        }
+        
+        .section-title::before {
+            content: '>';
+            position: absolute;
+            left: 0;
+            color: var(--terminal-green);
+        }
+        
+        /* Services grid */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+        
+        .service-card {
+            background: var(--bg-tertiary);
+            border-radius: 8px;
+            padding: 2rem;
+            border: 1px solid var(--border);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .service-card::before {
+            content: 'ls -la';
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            opacity: 0.1;
+            color: var(--accent-blue);
+            font-size: 0.9rem;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+            border-color: var(--accent-blue);
+        }
+        
+        .service-icon {
+            font-size: 3rem;
+            color: var(--accent-blue);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        
+        .service-card h3 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+            text-align: center;
+            font-size: 1.5rem;
+        }
+        
+        .service-card p {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+        
+        .service-features {
+            list-style: none;
+            margin-bottom: 1.5rem;
+        }
+        
+        .service-features li {
+            padding: 0.5rem 0;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .service-features li::before {
+            content: "❯";
+            color: var(--terminal-green);
+            font-weight: bold;
+        }
+        
+        .service-price {
+            text-align: center;
+            font-size: 1.2rem;
+            color: var(--accent-green);
+            font-weight: bold;
+            margin-top: 1rem;
+            padding: 0.5rem;
+            background: rgba(124, 227, 139, 0.1);
+            border-radius: 4px;
+        }
+        
+        /* Code snippet */
+        .code-snippet {
+            background: var(--bg-tertiary);
+            border-radius: 5px;
+            padding: 1.5rem;
+            border: 1px solid var(--border);
+            margin: 2rem 0;
+            overflow-x: auto;
+            font-family: 'Fira Code', monospace;
+        }
+        
+        .code-snippet pre {
+            margin: 0;
+        }
+        
+        .code-comment {
+            color: var(--text-secondary);
+        }
+        
+        .code-keyword {
+            color: var(--accent-purple);
+        }
+        
+        .code-function {
+            color: var(--accent-blue);
+        }
+        
+        .code-string {
+            color: var(--accent-green);
+        }
+        
+        .code-variable {
+            color: var(--accent-orange);
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--bg-secondary);
+            color: var(--text-secondary);
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 2rem;
+            border-top: 1px solid var(--border);
+        }
+        
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-menu {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="container nav-container">
+            <a href="../index.html" class="nav-logo">tz</a>
+            <ul class="nav-menu">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="services.html">Services</a></li>
+                <!-- <li><a href="portfolio.html">Portfolio</a></li> -->
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header>
+        <div class="terminal-bar">
+            <div class="terminal-button close"></div>
+            <div class="terminal-button minimize"></div>
+            <div class="terminal-button maximize"></div>
+        </div>
+        <div class="container header-content">
+            <h1>Cloud Engineering Services</h1>
+            <div class="tagline">aws_services.sh</div>
+        </div>
+    </header>
+
+    <section id="services-overview">
+        <div class="container">
+            <h2 class="section-title">services_overview</h2>
+            <div class="code-snippet">
+                <pre><span class="code-comment"># Available Cloud Engineering Services</span>
+<span class="code-keyword">const</span> <span class="code-variable">services</span> = {
+  <span class="code-variable">cloud</span>: <span class="code-string">"AWS Infrastructure Setup & Management"</span>,
+  <span class="code-variable">monitoring</span>: <span class="code-string">"Zabbix & CloudWatch Monitoring"</span>,
+  <span class="code-variable">devops</span>: <span class="code-string">"CI/CD Pipeline Implementation"</span>,
+  <span class="code-variable">support</span>: <span class="code-string">"IT Support & System Administration"</span>
+};
+
+<span class="code-keyword">function</span> <span class="code-function">getServiceDetails</span>(<span class="code-variable">serviceType</span>) {
+  <span class="code-keyword">return</span> <span class="code-string">`Comprehensive ${serviceType} solutions`</span>;
+}</pre>
+            </div>
+        </div>
+    </section>
+
+    <section id="services-list">
+        <div class="container">
+            <h2 class="section-title">available_services</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-cloud"></i>
+                    </div>
+                    <h3>AWS Infrastructure Setup</h3>
+                    <p>Complete AWS infrastructure design and implementation for your business needs. From basic EC2 instances to complex multi-tier architectures.</p>
+                    <ul class="service-features">
+                        <li>EC2 Instance Configuration</li>
+                        <li>S3 Bucket Setup & Management</li>
+                        <li>VPC & Security Groups</li>
+                        <li>IAM User & Role Management</li>
+                        <li>Route 53 DNS Configuration</li>
+                        <li>CloudWatch Monitoring Setup</li>
+                    </ul>
+                    <div class="service-price">Starting from $500</div>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Monitoring Solutions</h3>
+                    <p>Implement comprehensive monitoring solutions using Zabbix and AWS CloudWatch to ensure optimal performance and uptime.</p>
+                    <ul class="service-features">
+                        <li>Zabbix Server Installation</li>
+                        <li>Custom Dashboard Creation</li>
+                        <li>Alert Configuration</li>
+                        <li>Performance Metrics Tracking</li>
+                        <li>Log Analysis Setup</li>
+                        <li>24/7 Monitoring Support</li>
+                    </ul>
+                    <div class="service-price">Starting from $300</div>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-code-branch"></i>
+                    </div>
+                    <h3>DevOps Implementation</h3>
+                    <p>Set up CI/CD pipelines and DevOps practices to streamline your development and deployment processes.</p>
+                    <ul class="service-features">
+                        <li>Jenkins Pipeline Setup</li>
+                        <li>Git Repository Configuration</li>
+                        <li>Automated Testing Integration</li>
+                        <li>Deployment Automation</li>
+                        <li>Docker Containerization</li>
+                        <li>Infrastructure as Code (IaC)</li>
+                    </ul>
+                    <div class="service-price">Starting from $400</div>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-server"></i>
+                    </div>
+                    <h3>System Administration</h3>
+                    <p>Comprehensive IT support and system administration services for Windows, macOS, and Linux environments.</p>
+                    <ul class="service-features">
+                        <li>Hardware Maintenance</li>
+                        <li>Software Installation & Updates</li>
+                        <li>Network Troubleshooting</li>
+                        <li>Security Configuration</li>
+                        <li>Backup & Recovery</li>
+                        <li>Help Desk Support</li>
+                    </ul>
+                    <div class="service-price">Starting from $200</div>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Security & Compliance</h3>
+                    <p>Implement security best practices and compliance measures for your cloud infrastructure and applications.</p>
+                    <ul class="service-features">
+                        <li>Security Group Configuration</li>
+                        <li>IAM Policy Management</li>
+                        <li>Encryption Setup</li>
+                        <li>Access Control Implementation</li>
+                        <li>Security Auditing</li>
+                        <li>Compliance Documentation</li>
+                    </ul>
+                    <div class="service-price">Starting from $350</div>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <h3>Maintenance & Support</h3>
+                    <p>Ongoing maintenance and support services to ensure your infrastructure runs smoothly and efficiently.</p>
+                    <ul class="service-features">
+                        <li>Regular System Updates</li>
+                        <li>Performance Optimization</li>
+                        <li>Issue Resolution</li>
+                        <li>Capacity Planning</li>
+                        <li>Cost Optimization</li>
+                        <li>Technical Consultation</li>
+                    </ul>
+                    <div class="service-price">Starting from $150/month</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="process">
+        <div class="container">
+            <h2 class="section-title">service_process</h2>
+            <div class="code-snippet">
+                <pre><span class="code-comment"># Service Delivery Process</span>
+<span class="code-keyword">async function</span> <span class="code-function">serviceDelivery</span>() {
+  <span class="code-keyword">const</span> <span class="code-variable">steps</span> = [
+    <span class="code-string">"1. Initial Consultation & Requirements Gathering"</span>,
+    <span class="code-string">"2. Infrastructure Design & Planning"</span>,
+    <span class="code-string">"3. Implementation & Configuration"</span>,
+    <span class="code-string">"4. Testing & Quality Assurance"</span>,
+    <span class="code-string">"5. Deployment & Documentation"</span>,
+    <span class="code-string">"6. Training & Handover"</span>,
+    <span class="code-string">"7. Ongoing Support & Maintenance"</span>
+  ];
+  
+  <span class="code-keyword">for</span> (<span class="code-keyword">const</span> <span class="code-variable">step</span> <span class="code-keyword">of</span> <span class="code-variable">steps</span>) {
+    <span class="code-keyword">await</span> <span class="code-function">executeStep</span>(<span class="code-variable">step</span>);
+  }
+}</pre>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>Thaw Zin - Junior Cloud Engineer & IT Support Specialist</p>
+            <p>Email: thawzin252467@gmail.com | Phone: +95 9799745068</p>
+            <div class="domain-note" style="background: rgba(89, 184, 255, 0.1); display: inline-block; padding: 0.5rem 1rem; border-radius: 4px; margin-top: 1rem; color: var(--accent-blue); border: 1px solid var(--border);">
+                <i class="fas fa-globe"></i> Domain: pretamane.com (Registered and Configured)
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
+```
+

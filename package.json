@@ -1,0 +1,17 @@
+{
+    "name": "pretamane-website",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+      "start": "http-server -p 8000 -o --cors",
+      "dev": "http-server -p 8000 -o --cors",
+      "test": "echo \"Open http://localhost:8000 to test\" && http-server -p 8000 --cors"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+      "http-server": "^14.1.1"
+    }
+  }
