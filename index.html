@@ -51,9 +51,41 @@
             background: var(--bg-secondary);
             padding: 1rem 0;
             border-bottom: 1px solid var(--border);
-            position: sticky;
+            position: fixed;
             top: 0;
+            left: 0;
+            right: 0;
             z-index: 100;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .nav.fade-out {
+            opacity: 0;
+            transform: translateY(-100%);
+            pointer-events: none;
+        }
+
+        .nav.fade-in {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+
+        /* Add hover effect only when not faded out */
+        .nav:not(.fade-out):hover {
+            background: var(--bg-secondary);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Add padding to body to account for fixed nav */
+        body {
+            padding-top: 4rem;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
         }
         
         .nav-container {
@@ -123,18 +155,23 @@
             text-align: center;
             position: relative;
             border-bottom: 1px solid var(--border);
+            margin-top: 2rem; /* Add space below fixed navigation */
         }
         
         .terminal-bar {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
+            top: 1rem; /* Move terminal bar down */
+            left: 50%;
+            transform: translateX(-50%); /* Center horizontally */
+            width: 95%; /* Slightly less than full width for better appearance */
+            max-width: 1160px; /* Match container width */
             height: 25px;
             background-color: var(--bg-tertiary);
             display: flex;
             align-items: center;
             padding-left: 15px;
+            border-radius: 8px 8px 0 0; /* Rounded top corners */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
         
         .terminal-button {
@@ -157,7 +194,9 @@
         }
         
         .header-content {
-            margin-top: 40px;
+            margin-top: 60px; /* Increased margin to accommodate moved terminal bar */
+            position: relative;
+            z-index: 1;
         }
         
         .profile-img {
@@ -908,69 +947,147 @@
     </footer>
 
     <script>
-        // Enhanced mobile menu functionality
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const navMenu = document.getElementById('navMenu');
-        
-        // Toggle menu function
-        function toggleMenu() {
-            navMenu.classList.toggle('active');
-            const icon = mobileMenuBtn.querySelector('i');
-            if (navMenu.classList.contains('active')) {
-                icon.className = 'fas fa-times';
-                // Add body scroll lock
-                document.body.style.overflow = 'hidden';
-            } else {
+        // Navigation scroll effect with Flutter-like animation
+        document.addEventListener('DOMContentLoaded', function() {
+            const nav = document.querySelector('.nav');
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const navMenu = document.getElementById('navMenu');
+            let lastScrollY = window.scrollY;
+            let ticking = false;
+            let scrollTimeout;
+            let lastScrollTime = Date.now();
+            let scrollDelta = 0;
+
+            // Function to handle scroll event with enhanced animation
+            function handleScroll() {
+                const currentTime = Date.now();
+                const timeDiff = currentTime - lastScrollTime;
+                const currentScrollY = window.scrollY;
+                scrollDelta = currentScrollY - lastScrollY;
+                
+                // Calculate scroll speed
+                const scrollSpeed = Math.abs(scrollDelta) / Math.max(1, timeDiff);
+                
+                if (currentScrollY > 50) { // Reduced threshold for faster response
+                    if (scrollDelta > 0 && scrollSpeed > 0.1) { // Scrolling down fast
+                        nav.classList.add('fade-out');
+                        nav.classList.remove('fade-in');
+                        if (navMenu.classList.contains('active')) {
+                            closeMenu();
+                        }
+                    } else if (scrollDelta < 0) { // Scrolling up
+                        nav.classList.remove('fade-out');
+                        nav.classList.add('fade-in');
+                    }
+                } else {
+                    nav.classList.remove('fade-out');
+                    nav.classList.add('fade-in');
+                }
+                
+                lastScrollY = currentScrollY;
+                lastScrollTime = currentTime;
+                ticking = false;
+            }
+
+            // Throttled scroll event listener
+            window.addEventListener('scroll', function() {
+                if (!ticking) {
+                    window.requestAnimationFrame(function() {
+                        handleScroll();
+                    });
+                    ticking = true;
+                }
+
+                if (scrollTimeout) {
+                    clearTimeout(scrollTimeout);
+                }
+
+                scrollTimeout = setTimeout(function() {
+                    if (window.scrollY < 50) {
+                        nav.classList.remove('fade-out');
+                        nav.classList.add('fade-in');
+                    }
+                }, 800);
+            });
+
+            // Mobile menu functionality
+            function toggleMenu() {
+                navMenu.classList.toggle('active');
+                const icon = mobileMenuBtn.querySelector('i');
+                if (navMenu.classList.contains('active')) {
+                    icon.className = 'fas fa-times';
+                    document.body.style.overflow = 'hidden';
+                } else {
+                    icon.className = 'fas fa-bars';
+                    document.body.style.overflow = '';
+                }
+            }
+
+            function closeMenu() {
+                navMenu.classList.remove('active');
+                const icon = mobileMenuBtn.querySelector('i');
                 icon.className = 'fas fa-bars';
-                // Restore body scroll
                 document.body.style.overflow = '';
             }
-        }
-        
-        // Close menu function
-        function closeMenu() {
-            navMenu.classList.remove('active');
-            const icon = mobileMenuBtn.querySelector('i');
-            icon.className = 'fas fa-bars';
-            document.body.style.overflow = '';
-        }
-        
-        // Event listeners
-        mobileMenuBtn.addEventListener('click', function(e) {
-            e.stopPropagation();
-            toggleMenu();
-        });
-        
-        // Close menu when clicking on any link
-        navMenu.addEventListener('click', function(e) {
-            if (e.target.tagName === 'A') {
-                // Add a small delay for better UX
-                setTimeout(() => {
+
+            // Mobile menu event listeners
+            mobileMenuBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                toggleMenu();
+            });
+
+            navMenu.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    setTimeout(closeMenu, 100);
+                }
+            });
+
+            document.addEventListener('click', function(e) {
+                if (!navMenu.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
                     closeMenu();
-                }, 100);
-            }
-        });
-        
-        // Close menu when clicking outside
-        document.addEventListener('click', function(e) {
-            if (!navMenu.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
-                closeMenu();
-            }
-        });
-        
-        // Close menu on window resize (if menu is open and screen becomes larger)
-        window.addEventListener('resize', function() {
-            if (window.innerWidth > 768 && navMenu.classList.contains('active')) {
-                closeMenu();
-            }
-        });
-        
-        // Close menu on escape key
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && navMenu.classList.contains('active')) {
-                closeMenu();
-            }
+                }
+            });
+
+            window.addEventListener('resize', function() {
+                if (window.innerWidth > 768 && navMenu.classList.contains('active')) {
+                    closeMenu();
+                }
+            });
+
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && navMenu.classList.contains('active')) {
+                    closeMenu();
+                }
+            });
+
+            // Handle touch events for mobile devices
+            let touchStartY = 0;
+            
+            window.addEventListener('touchstart', function(e) {
+                touchStartY = e.touches[0].clientY;
+            });
+
+            window.addEventListener('touchmove', function(e) {
+                if (!ticking) {
+                    window.requestAnimationFrame(function() {
+                        const touchY = e.touches[0].clientY;
+                        if (touchStartY < touchY) {
+                            // Scrolling up
+                            nav.classList.remove('fade-out');
+                            nav.classList.add('fade-in');
+                        } else if (touchStartY > touchY && window.scrollY > 50) {
+                            // Scrolling down
+                            nav.classList.add('fade-out');
+                            nav.classList.remove('fade-in');
+                        }
+                        touchStartY = touchY;
+                    });
+                    ticking = true;
+                }
+            });
         });
     </script>
+    <script src="main.js"></script>
+    <script src="assets/js/navigation.js"></script>
 </body>
 </html>

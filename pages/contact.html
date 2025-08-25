@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="../style.css">
     <style>
         :root {
+            --container-max-width: 1160px;
             --bg-primary: #0d1117;
             --bg-secondary: #161b22;
             --bg-tertiary: #21262d;
@@ -39,6 +40,8 @@
             color: var(--text-primary);
             line-height: 1.6;
             overflow-x: hidden;
+            margin: 0;
+            padding-top: 0;
         }
         
         .container {
@@ -124,27 +127,31 @@
             text-align: center;
             position: relative;
             border-bottom: 1px solid var(--border);
+            margin-top: 0;
         }
         
         .terminal-bar {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 25px;
             background-color: var(--bg-tertiary);
+            padding: 0.8rem;
+            border-top-left-radius: 0.5rem;
+            border-top-right-radius: 0.5rem;
             display: flex;
+            gap: 0.5rem;
+            max-width: var(--container-max-width);
+            width: calc(100% - 40px);
+            margin: 0 auto;
+            margin-top: 3rem;
             align-items: center;
-            padding-left: 15px;
+            justify-content: flex-start;
+            border: 1px solid var(--border);
         }
         
         .terminal-button {
             width: 12px;
             height: 12px;
             border-radius: 50%;
-            margin-right: 8px;
         }
-        
+
         .terminal-button.close {
             background-color: var(--terminal-red);
         }
@@ -158,7 +165,8 @@
         }
         
         .header-content {
-            margin-top: 40px;
+            margin-top: 4rem;
+            padding: 2rem;
         }
         
         h1 {
@@ -524,6 +532,7 @@
     </style>
 </head>
 <body>
+    <script src="../assets/js/contact-form.js"></script>
     <nav class="nav">
         <div class="container nav-container">
             <a href="../index.html" class="nav-logo">tz</a>
@@ -541,14 +550,16 @@
     </nav>
 
     <header>
-        <div class="terminal-bar">
-            <div class="terminal-button close"></div>
-            <div class="terminal-button minimize"></div>
-            <div class="terminal-button maximize"></div>
-        </div>
-        <div class="container header-content">
-            <h1>Contact Me</h1>
-            <div class="tagline">aws_contact.sh</div>
+        <div class="container">
+            <div class="terminal-bar">
+                <div class="terminal-button close"></div>
+                <div class="terminal-button minimize"></div>
+                <div class="terminal-button maximize"></div>
+            </div>
+            <div class="header-content">
+                <h1>Contact Me</h1>
+                <div class="tagline">aws_contact.sh</div>
+            </div>
         </div>
     </header>
 
@@ -754,6 +765,7 @@
     </footer>
 
     <script>
+        
         const API_ENDPOINT = 'https://xh6ixempmb.execute-api.ap-southeast-1.amazonaws.com/prod/contact';
     
         document.getElementById('contactForm').addEventListener('submit', async function(e) {
@@ -923,5 +935,7 @@
             }
         });
     </script>
+    <script src="../assets/js/contact-form.js"></script>
+    <script src="../assets/js/navigation.js"></script>
 </body>
 </html>
