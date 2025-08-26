@@ -755,6 +755,15 @@
         </div>
     </header>
 
+        <section id="visitor-ip" style="margin-top:2rem;">
+            <div class="container">
+                <div id="ip-box" style="background:var(--bg-tertiary);border-radius:8px;padding:1.5rem 2rem;margin-bottom:2rem;box-shadow:0 2px 8px rgba(0,0,0,0.12);border:1px solid var(--border);max-width:400px;">
+                    <h2 style="color:var(--accent);font-size:1.2rem;margin-bottom:0.5rem;">Your Public IP Address</h2>
+                    <div id="visitor-ip-value" style="font-size:1.5rem;color:var(--text-primary);font-family:'Fira Code',monospace;">Loading...</div>
+                </div>
+            </div>
+        </section>
+
     <section id="about">
         <div class="container">
             <h2 class="section-title">professional_summary</h2>
@@ -1087,7 +1096,19 @@
             });
         });
     </script>
-    <script src="main.js"></script>
-    <script src="assets/js/navigation.js"></script>
-</body>
-</html>
+    
+    <script>
+        // Fetch and display visitor IP
+        fetch('https://api.ipify.org?format=json')
+            .then(res => res.json())
+            .then(data => {
+                document.getElementById('visitor-ip-value').textContent = data.ip;
+            })
+            .catch(() => {
+                document.getElementById('visitor-ip-value').textContent = 'Unavailable';
+            });
+    </script>
+        <script src="main.js"></script>
+        <script src="assets/js/navigation.js"></script>
+        </body>
+        </html>

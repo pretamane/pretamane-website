@@ -47,6 +47,8 @@
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
+    transform: translateY(0);
+    opacity: 1;
 }
 
 .nav.fade-out {
@@ -557,6 +559,19 @@ header {
         
         /* Responsive design */
         @media (max-width: 768px) {
+            .nav {
+                transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+            }
+            
+            .nav.fade-out {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            
+            .nav.fade-in {
+                transform: translateY(0);
+                opacity: 1;
+            }
             /* Container adjustments */
             .container {
                 padding: 0 15px;
