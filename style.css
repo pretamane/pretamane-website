@@ -126,10 +126,22 @@ body {
             font-size: 1.5rem;
             cursor: pointer;
             padding: 0.5rem;
+            /* Touch-friendly settings for mobile devices */
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+            /* Ensure button is tappable */
+            min-width: 44px;
+            min-height: 44px;
+            touch-action: manipulation;
         }
         
-        .mobile-menu-btn:hover {
+        .mobile-menu-btn:hover,
+        .mobile-menu-btn:active,
+        .mobile-menu-btn:focus {
             color: var(--accent-blue);
+            outline: none;
         }
         
 /* Header styling */

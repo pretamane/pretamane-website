@@ -100,17 +100,39 @@ document.addEventListener('DOMContentLoaded', function() {
             document.body.style.overflow = '';
         }
         
-        // Event listeners
-        mobileMenuBtn.addEventListener('click', toggleMenu);
-        
-        // Close menu when clicking on a link
-        const navLinks = navMenu.querySelectorAll('a');
-        navLinks.forEach(link => {
-            link.addEventListener('click', closeMenu);
+        // Event listeners - Support both click and touch events
+        mobileMenuBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            toggleMenu();
         });
         
-        // Close menu when clicking outside
+        // Explicit touch event for mobile devices
+        mobileMenuBtn.addEventListener('touchend', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            toggleMenu();
+        });
+        
+        // Close menu when clicking/touching on a link
+        const navLinks = navMenu.querySelectorAll('a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                closeMenu();
+            });
+            link.addEventListener('touchend', function(e) {
+                closeMenu();
+            });
+        });
+        
+        // Close menu when clicking/touching outside
         document.addEventListener('click', function(event) {
+            if (!nav.contains(event.target) && navMenu.classList.contains('active')) {
+                closeMenu();
+            }
+        });
+        
+        document.addEventListener('touchend', function(event) {
             if (!nav.contains(event.target) && navMenu.classList.contains('active')) {
                 closeMenu();
             }
