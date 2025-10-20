@@ -246,56 +246,11 @@ function showNotification(message, type) {
     }, 5000);
 }
 
-// Mobile menu functionality
-function initializeMobileMenu() {
-    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-    const navMenu = document.getElementById('navMenu');
-    
-    if (!mobileMenuBtn || !navMenu) return;
-
-    function toggleMenu() {
-        navMenu.classList.toggle('active');
-        mobileMenuBtn.classList.toggle('active');
-    }
-
-    function closeMenu() {
-        navMenu.classList.remove('active');
-        mobileMenuBtn.classList.remove('active');
-    }
-
-    // Event listeners
-    mobileMenuBtn.addEventListener('click', toggleMenu);
-
-    // Close menu when clicking on any link
-    navMenu.addEventListener('click', closeMenu);
-
-    // Close menu when clicking outside
-    document.addEventListener('click', (e) => {
-        if (!navMenu.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
-            closeMenu();
-        }
-    });
-
-    // Close menu on window resize
-    window.addEventListener('resize', () => {
-        if (window.innerWidth > 768 && navMenu.classList.contains('active')) {
-            closeMenu();
-        }
-    });
-
-    // Close menu on escape key
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && navMenu.classList.contains('active')) {
-            closeMenu();
-        }
-    });
-}
-
 // Initialize everything when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
     initializeContactForm();
     setupFormValidation();
-    initializeMobileMenu();
+    // Mobile menu is now handled by navigation.js
 });
 
 // Export for testing purposes
@@ -303,7 +258,6 @@ if (typeof module !== 'undefined' && module.exports) {
     module.exports = {
         validateField,
         showNotification,
-        handleFormSubmit,
-        initializeMobileMenu
+        handleFormSubmit
     };
 }
