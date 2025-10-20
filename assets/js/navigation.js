@@ -118,10 +118,14 @@ document.addEventListener('DOMContentLoaded', function() {
         const navLinks = navMenu.querySelectorAll('a');
         navLinks.forEach(link => {
             link.addEventListener('click', function(e) {
+                // Don't prevent default - let the link navigate
                 closeMenu();
             });
             link.addEventListener('touchend', function(e) {
+                // For mobile: prevent duplicate click event, but allow navigation
+                e.stopPropagation();
                 closeMenu();
+                // Let the browser handle the navigation
             });
         });
         
