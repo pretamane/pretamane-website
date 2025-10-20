@@ -362,6 +362,12 @@
                 display: block;
             }
             
+            /* Ensure nav is always visible in mobile when menu is open */
+            .nav.fade-out.menu-open {
+                opacity: 1 !important;
+                transform: translateY(0) !important;
+            }
+            
             .nav-menu {
                 display: none;
                 position: absolute;
@@ -378,7 +384,7 @@
             }
             
             .nav-menu.active {
-                display: flex;
+                display: flex !important;
             }
             
             .nav-menu li {
@@ -688,6 +694,7 @@
         // Enhanced mobile menu functionality
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const navMenu = document.getElementById('navMenu');
+        const nav = document.querySelector('.nav');
         
         // Toggle menu function
         function toggleMenu() {
@@ -695,10 +702,14 @@
             const icon = mobileMenuBtn.querySelector('i');
             if (navMenu.classList.contains('active')) {
                 icon.className = 'fas fa-times';
+                // Add menu-open class to prevent nav from fading out
+                nav.classList.add('menu-open');
                 // Add body scroll lock
                 document.body.style.overflow = 'hidden';
             } else {
                 icon.className = 'fas fa-bars';
+                // Remove menu-open class
+                nav.classList.remove('menu-open');
                 // Restore body scroll
                 document.body.style.overflow = '';
             }
@@ -707,6 +718,7 @@
         // Close menu function
         function closeMenu() {
             navMenu.classList.remove('active');
+            nav.classList.remove('menu-open');
             const icon = mobileMenuBtn.querySelector('i');
             icon.className = 'fas fa-bars';
             document.body.style.overflow = '';
