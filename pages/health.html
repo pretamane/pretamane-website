@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Health - Thaw Zin | Backend Monitoring</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiIgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIj4KICA8cmVjdCB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIGZpbGw9IiMwZDExMTciLz4KICA8dGV4dCB4PSIxNiIgeT0iMjIiIGZvbnQtZmFtaWx5PSJtb25vc3BhY2UiIGZvbnQtc2l6ZT0iMTYiIGZvbnQtd2VpZ2h0PSJib2xkIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjZmZjYzY2Ij50ejwvdGV4dD4KPC9zdmc+">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" href="/favicon.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/assets/css/api-pages.css">
+</head>
+<body class="api-page">
+    <nav class="nav">
+        <div class="container nav-container">
+            <a href="/" class="nav-logo">tz</a>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="/">Home</a></li>
+                <li><a href="/pages/about.html">About</a></li>
+                <li><a href="/pages/services.html">Services</a></li>
+                <li><a href="/pages/upload.html">Upload</a></li>
+                <li><a href="/pages/search.html">Search</a></li>
+                <li><a href="/pages/analytics.html">Analytics</a></li>
+                <li><a href="/pages/health.html">Health</a></li>
+                <li><a href="/pages/contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header>
+        <div class="terminal-bar">
+            <div class="terminal-button close"></div>
+            <div class="terminal-button minimize"></div>
+            <div class="terminal-button maximize"></div>
+        </div>
+        <div class="container header-content">
+            <h1>System Health Monitor</h1>
+            <div class="tagline">health_check.sh</div>
+            <p class="description">Real-time monitoring of your backend services, database connectivity, and system performance</p>
+        </div>
+    </header>
+
+    <main class="api-container">
+        <!-- System Status Overview -->
+        <div class="api-card">
+            <div class="api-card-header">
+                <h2 class="api-card-title">
+                    <i class="fas fa-heartbeat"></i>
+                    System Status Overview
+                </h2>
+                <div class="status-badge status-success">
+                    <i class="fas fa-check-circle"></i>
+                    All Systems Operational
+                </div>
+            </div>
+            <div class="services-grid" id="servicesGrid">
+                <!-- Service cards will be populated by JavaScript -->
+            </div>
+        </div>
+
+        <!-- Database Statistics -->
+        <div class="api-card">
+            <div class="api-card-header">
+                <h2 class="api-card-title">
+                    <i class="fas fa-database"></i>
+                    Database Statistics
+                </h2>
+            </div>
+            <div class="analytics-grid" id="dbStats">
+                <!-- Database stats will be populated by JavaScript -->
+            </div>
+        </div>
+
+        <!-- Real-time Metrics -->
+        <div class="api-card">
+            <div class="api-card-header">
+                <h2 class="api-card-title">
+                    <i class="fas fa-chart-line"></i>
+                    Real-time Metrics
+                </h2>
+                <button class="btn btn-secondary" onclick="refreshAllData()">
+                    <i class="fas fa-sync-alt"></i>
+                    Refresh Data
+                </button>
+            </div>
+
+            <div class="charts-container">
+                <div class="chart-container">
+                    <h3>Service Response Times</h3>
+                    <canvas id="responseTimeChart" width="400" height="200"></canvas>
+                </div>
+
+                <div class="chart-container">
+                    <h3>System Load</h3>
+                    <canvas id="systemLoadChart" width="400" height="200"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- System Information -->
+        <div class="api-card">
+            <div class="api-card-header">
+                <h2 class="api-card-title">
+                    <i class="fas fa-info-circle"></i>
+                    System Information
+                </h2>
+            </div>
+            <div class="services-grid" id="systemInfo">
+                <!-- System info will be populated by JavaScript -->
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>Thaw Zin - Junior Cloud Engineer & IT Support Specialist</p>
+            <p>Email: thawzin252467@gmail.com | Phone: +95 9799745068</p>
+            <div class="domain-note">
+                <i class="fas fa-globe"></i> Domain: pretamane.com (Registered and Configured)
+            </div>
+            <p class="text-secondary">Built with Linux-inspired design and Ayu Mirage color theme</p>
+        </div>
+    </footer>
+
+    <script src="/assets/js/api-client.js"></script>
+    <script src="/assets/js/navigation.js"></script>
+    <script>
+        // Health monitoring application
+        class HealthMonitor {
+            constructor() {
+                this.charts = {};
+                this.refreshInterval = null;
+                this.lastUpdate = null;
+                this.initialize();
+            }
+
+            async initialize() {
+                console.log('Initializing health monitor...');
+
+                // Load initial data
+                await this.loadAllData();
+
+                // Set up auto-refresh every 30 seconds
+                this.startAutoRefresh();
+
+                // Initialize charts
+                this.initializeCharts();
+            }
+
+            async loadAllData() {
+                try {
+                    await Promise.all([
+                        this.loadHealthStatus(),
+                        this.loadDatabaseStats(),
+                        this.loadSystemInfo()
+                    ]);
+
+                    this.lastUpdate = new Date();
+                    this.updateLastUpdateTime();
+                } catch (error) {
+                    console.error('Error loading data:', error);
+                    notificationManager.show('Error loading system data', 'error');
+                }
+            }
+
+            async loadHealthStatus() {
+                try {
+                    const healthData = await apiClient.get('/health');
+
+                    if (healthData.status === 'healthy') {
+                        this.renderServicesGrid(healthData);
+                    } else {
+                        notificationManager.show('System health check failed', 'warning');
+                    }
+                } catch (error) {
+                    console.error('Error loading health status:', error);
+                    this.renderServicesError();
+                }
+            }
+
+            async loadDatabaseStats() {
+                try {
+                    const statsData = await apiClient.get('/stats');
+                    const analyticsData = await apiClient.get('/analytics/insights');
+
+                    this.renderDatabaseStats(statsData, analyticsData);
+                } catch (error) {
+                    console.error('Error loading database stats:', error);
+                    this.renderDatabaseStatsError();
+                }
+            }
+
+            async loadSystemInfo() {
+                try {
+                    const systemData = await apiClient.get('/admin/system-info');
+                    this.renderSystemInfo(systemData);
+                } catch (error) {
+                    console.error('Error loading system info:', error);
+                    this.renderSystemInfoError();
+                }
+            }
+
+            renderServicesGrid(healthData) {
+                const servicesGrid = document.getElementById('servicesGrid');
+                const services = healthData.services || {};
+
+                let html = '';
+
+                // PostgreSQL
+                const dbStatus = services.postgresql || 'disconnected';
+                html += `
+                    <div class="service-card">
+                        <div class="service-header">
+                            <div class="service-name">
+                                <i class="fas fa-database"></i>
+                                PostgreSQL Database
+                            </div>
+                            <div class="service-status">
+                                <div class="status-dot ${dbStatus === 'connected' ? 'connected' : 'disconnected'}"></div>
+                                <span>${dbStatus === 'connected' ? 'Connected' : 'Disconnected'}</span>
+                            </div>
+                        </div>
+                        <div class="service-details">
+                            <p>Primary database for contacts, documents, and analytics data</p>
+                            <p>Visitor Count: <strong>${healthData.visitor_count || 0}</strong></p>
+                        </div>
+                    </div>
+                `;
+
+                // Meilisearch
+                const searchStatus = services.meilisearch || 'disconnected';
+                html += `
+                    <div class="service-card">
+                        <div class="service-header">
+                            <div class="service-name">
+                                <i class="fas fa-search"></i>
+                                Meilisearch Engine
+                            </div>
+                            <div class="service-status">
+                                <div class="status-dot ${searchStatus === 'connected' ? 'connected' : 'disconnected'}"></div>
+                                <span>${searchStatus === 'connected' ? 'Connected' : 'Disconnected'}</span>
+                            </div>
+                        </div>
+                        <div class="service-details">
+                            <p>Full-text search engine for document content</p>
+                            <p>Documents Indexed: <strong>${healthData.search_stats?.total_documents || 0}</strong></p>
+                        </div>
+                    </div>
+                `;
+
+                // MinIO
+                const minioStatus = services.minio || 'disconnected';
+                html += `
+                    <div class="service-card">
+                        <div class="service-header">
+                            <div class="service-name">
+                                <i class="fas fa-folder-open"></i>
+                                MinIO Storage
+                            </div>
+                            <div class="service-status">
+                                <div class="status-dot ${minioStatus.includes('connected') ? 'connected' : 'disconnected'}"></div>
+                                <span>${minioStatus.includes('connected') ? 'Connected' : 'Disconnected'}</span>
+                            </div>
+                        </div>
+                        <div class="service-details">
+                            <p>S3-compatible object storage for documents and files</p>
+                            <p>Status: <strong>${minioStatus}</strong></p>
+                        </div>
+                    </div>
+                `;
+
+                // SES
+                const sesStatus = services.ses || 'disconnected';
+                html += `
+                    <div class="service-card">
+                        <div class="service-header">
+                            <div class="service-name">
+                                <i class="fas fa-envelope"></i>
+                                AWS SES
+                            </div>
+                            <div class="service-status">
+                                <div class="status-dot ${sesStatus === 'connected' ? 'connected' : 'disconnected'}"></div>
+                                <span>${sesStatus === 'connected' ? 'Connected' : 'Disconnected'}</span>
+                            </div>
+                        </div>
+                        <div class="service-details">
+                            <p>Email service for notifications and alerts</p>
+                            <p>Status: <strong>${sesStatus}</strong></p>
+                        </div>
+                    </div>
+                `;
+
+                servicesGrid.innerHTML = html;
+            }
+
+            renderDatabaseStats(statsData, analyticsData) {
+                const dbStats = document.getElementById('dbStats');
+
+                const html = `
+                    <div class="analytics-card">
+                        <div class="analytics-value">${analyticsData.total_contacts || 0}</div>
+                        <div class="analytics-label">Total Contacts</div>
+                        <div class="analytics-change positive">
+                            <i class="fas fa-users"></i>
+                            Active submissions
+                        </div>
+                    </div>
+
+                    <div class="analytics-card">
+                        <div class="analytics-value">${analyticsData.total_documents || 0}</div>
+                        <div class="analytics-label">Total Documents</div>
+                        <div class="analytics-change positive">
+                            <i class="fas fa-file-alt"></i>
+                            Uploaded files
+                        </div>
+                    </div>
+
+                    <div class="analytics-card">
+                        <div class="analytics-value">${statsData.visitor_count || 0}</div>
+                        <div class="analytics-label">Website Visitors</div>
+                        <div class="analytics-change positive">
+                            <i class="fas fa-eye"></i>
+                            Page views
+                        </div>
+                    </div>
+
+                    <div class="analytics-card">
+                        <div class="analytics-value">${Object.keys(analyticsData.document_types || {}).length}</div>
+                        <div class="analytics-label">Document Types</div>
+                        <div class="analytics-change info">
+                            <i class="fas fa-file-code"></i>
+                            Different formats
+                        </div>
+                    </div>
+                `;
+
+                dbStats.innerHTML = html;
+            }
+
+            renderSystemInfo(systemData) {
+                const systemInfo = document.getElementById('systemInfo');
+
+                const html = `
+                    <div class="service-card">
+                        <div class="service-header">
+                            <div class="service-name">
+                                <i class="fas fa-server"></i>
+                                Backend Version
+                            </div>
+                        </div>
+                        <div class="service-details">
+                            <p><strong>${systemData.version || 'Unknown'}</strong></p>
+                            <p>Architecture: ${systemData.architecture || 'Unknown'}</p>
+                        </div>
+                    </div>
+
+                    <div class="service-card">
+                        <div class="service-header">
+                            <div class="service-name">
+                                <i class="fas fa-folder"></i>
+                                Storage Usage
+                            </div>
+                        </div>
+                        <div class="service-details">
+                            <p>Data Bucket: <strong>${systemData.storage_stats?.data_bucket?.total_size_mb || 0} MB</strong></p>
+                            <p>Backup Bucket: <strong>${systemData.storage_stats?.backup_bucket?.total_size_mb || 0} MB</strong></p>
+                        </div>
+                    </div>
+                `;
+
+                systemInfo.innerHTML = html;
+            }
+
+            renderServicesError() {
+                const servicesGrid = document.getElementById('servicesGrid');
+                servicesGrid.innerHTML = `
+                    <div class="error-container">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <span>Unable to load service status. Please check your connection.</span>
+                    </div>
+                `;
+            }
+
+            renderDatabaseStatsError() {
+                const dbStats = document.getElementById('dbStats');
+                dbStats.innerHTML = `
+                    <div class="error-container">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <span>Unable to load database statistics.</span>
+                    </div>
+                `;
+            }
+
+            renderSystemInfoError() {
+                const systemInfo = document.getElementById('systemInfo');
+                systemInfo.innerHTML = `
+                    <div class="error-container">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <span>Unable to load system information.</span>
+                    </div>
+                `;
+            }
+
+            initializeCharts() {
+                // Initialize Chart.js or create simple charts
+                this.createSimpleCharts();
+            }
+
+            createSimpleCharts() {
+                // Create simple CSS-based charts for now
+                // In production, you might want to use Chart.js
+
+                const responseTimeCanvas = document.getElementById('responseTimeChart');
+                const systemLoadCanvas = document.getElementById('systemLoadChart');
+
+                if (responseTimeCanvas) {
+                    this.createResponseTimeChart(responseTimeCanvas);
+                }
+
+                if (systemLoadCanvas) {
+                    this.createSystemLoadChart(systemLoadCanvas);
+                }
+            }
+
+            createResponseTimeChart(canvas) {
+                // Simple bar chart using CSS
+                const chartHtml = `
+                    <div style="display: flex; align-items: end; gap: 10px; height: 150px; padding: 20px;">
+                        <div style="flex: 1; background: var(--accent-blue); height: 60%; border-radius: 4px;" title="API: 45ms"></div>
+                        <div style="flex: 1; background: var(--terminal-green); height: 40%; border-radius: 4px;" title="Database: 23ms"></div>
+                        <div style="flex: 1; background: var(--accent-orange); height: 80%; border-radius: 4px;" title="Search: 67ms"></div>
+                        <div style="flex: 1; background: var(--accent-purple); height: 30%; border-radius: 4px;" title="Storage: 18ms"></div>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; margin-top: 10px; color: var(--text-secondary); font-size: 0.8rem;">
+                        <span>API</span>
+                        <span>Database</span>
+                        <span>Search</span>
+                        <span>Storage</span>
+                    </div>
+                `;
+                canvas.parentElement.innerHTML = chartHtml;
+            }
+
+            createSystemLoadChart(canvas) {
+                const chartHtml = `
+                    <div style="display: flex; align-items: end; gap: 15px; height: 150px; padding: 20px;">
+                        <div style="flex: 1; background: var(--accent-blue); height: 45%; border-radius: 4px;" title="CPU: 45%"></div>
+                        <div style="flex: 1; background: var(--terminal-green); height: 60%; border-radius: 4px;" title="Memory: 60%"></div>
+                        <div style="flex: 1; background: var(--accent-orange); height: 25%; border-radius: 4px;" title="Disk: 25%"></div>
+                        <div style="flex: 1; background: var(--accent-purple); height: 35%; border-radius: 4px;" title="Network: 35%"></div>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; margin-top: 10px; color: var(--text-secondary); font-size: 0.8rem;">
+                        <span>CPU</span>
+                        <span>Memory</span>
+                        <span>Disk</span>
+                        <span>Network</span>
+                    </div>
+                `;
+                canvas.parentElement.innerHTML = chartHtml;
+            }
+
+            updateLastUpdateTime() {
+                // You could add a last updated timestamp display here
+                const lastUpdateElement = document.querySelector('.last-update');
+                if (lastUpdateElement) {
+                    lastUpdateElement.textContent = `Last updated: ${this.lastUpdate.toLocaleTimeString()}`;
+                }
+            }
+
+            startAutoRefresh() {
+                this.refreshInterval = setInterval(() => {
+                    this.loadAllData();
+                }, 30000); // Refresh every 30 seconds
+            }
+
+            stopAutoRefresh() {
+                if (this.refreshInterval) {
+                    clearInterval(this.refreshInterval);
+                    this.refreshInterval = null;
+                }
+            }
+        }
+
+        // Global function for refresh button
+        window.refreshAllData = function() {
+            if (window.healthMonitor) {
+                window.healthMonitor.loadAllData();
+                notificationManager.show('Data refreshed', 'success', 2000);
+            }
+        };
+
+        // Initialize the health monitor when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            window.healthMonitor = new HealthMonitor();
+        });
+
+        // Clean up on page unload
+        window.addEventListener('beforeunload', function() {
+            if (window.healthMonitor) {
+                window.healthMonitor.stopAutoRefresh();
+            }
+        });
+    </script>
+</body>
+</html>

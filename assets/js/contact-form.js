@@ -1,5 +1,5 @@
-// AWS API Gateway endpoint
-const API_ENDPOINT = 'https://xh6ixempmb.execute-api.ap-southeast-1.amazonaws.com/prod/contact';
+// Backend API endpoint (relative path so it works with IP or domain behind Caddy)
+const API_ENDPOINT = '/contact';
 
 // Initialize when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {

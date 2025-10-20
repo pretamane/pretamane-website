@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document Search - Thaw Zin | Search Engine</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiIgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIj4KICA8cmVjdCB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIGZpbGw9IiMwZDExMTciLz4KICA8dGV4dCB4PSIxNiIgeT0iMjIiIGZvbnQtZmFtaWx5PSJtb25vc3BhY2UiIGZvbnQtc2l6ZT0iMTYiIGZvbnQtd2VpZ2h0PSJib2xkIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjZmZjYzY2Ij50ejwvdGV4dD4KPC9zdmc+">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" href="/favicon.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/assets/css/api-pages.css">
+</head>
+<body class="api-page">
+    <nav class="nav">
+        <div class="container nav-container">
+            <a href="/" class="nav-logo">tz</a>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="/">Home</a></li>
+                <li><a href="/pages/about.html">About</a></li>
+                <li><a href="/pages/services.html">Services</a></li>
+                <li><a href="/pages/upload.html">Upload</a></li>
+                <li><a href="/pages/search.html">Search</a></li>
+                <li><a href="/pages/analytics.html">Analytics</a></li>
+                <li><a href="/pages/health.html">Health</a></li>
+                <li><a href="/pages/contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header>
+        <div class="terminal-bar">
+            <div class="terminal-button close"></div>
+            <div class="terminal-button minimize"></div>
+            <div class="terminal-button maximize"></div>
+        </div>
+        <div class="container header-content">
+            <h1>Document Search Engine</h1>
+            <div class="tagline">search_engine.sh</div>
+            <p class="description">Search through your documents with advanced filters, full-text search, and intelligent results</p>
+        </div>
+    </header>
+
+    <main class="api-container">
+        <!-- Search Form -->
+        <div class="api-card">
+            <div class="api-card-header">
+                <h2 class="api-card-title">
+                    <i class="fas fa-search"></i>
+                    Search Documents
+                </h2>
+                <p class="api-card-subtitle">Find documents using keywords, filters, and advanced search options</p>
+            </div>
+
+            <div class="api-form">
+                <!-- Main Search -->
+                <div class="form-section">
+                    <h3 class="form-section-title">
+                        <i class="fas fa-keyboard"></i>
+                        Search Query
+                    </h3>
+
+                    <div class="search-input-container">
+                        <div class="search-input-wrapper">
+                            <i class="fas fa-search search-icon"></i>
+                            <input type="text" id="searchQuery" class="search-input" placeholder="Enter search terms, keywords, or phrases..." autocomplete="off">
+                            <button id="clearSearch" class="clear-search-btn" style="display: none;">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                        <button id="searchBtn" class="btn btn-primary">
+                            <i class="fas fa-search"></i>
+                            Search
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Search Filters -->
+                <div class="form-section">
+                    <h3 class="form-section-title">
+                        <i class="fas fa-filter"></i>
+                        Search Filters
+                    </h3>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="filterDocumentType" class="form-label">Document Type</label>
+                            <select id="filterDocumentType" class="form-select">
+                                <option value="">All Types</option>
+                                <option value="proposal">Business Proposal</option>
+                                <option value="contract">Contract</option>
+                                <option value="invoice">Invoice</option>
+                                <option value="report">Report</option>
+                                <option value="presentation">Presentation</option>
+                                <option value="technical_doc">Technical Document</option>
+                                <option value="image">Image</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="filterContactId" class="form-label">Contact ID</label>
+                            <input type="text" id="filterContactId" class="form-input" placeholder="e.g., contact_123456_abc123">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="filterStatus" class="form-label">Processing Status</label>
+                            <select id="filterStatus" class="form-select">
+                                <option value="">All Statuses</option>
+                                <option value="pending">Pending</option>
+                                <option value="processing">Processing</option>
+                                <option value="completed">Completed</option>
+                                <option value="failed">Failed</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="filterDateFrom" class="form-label">Date From</label>
+                            <input type="date" id="filterDateFrom" class="form-input">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Search Options -->
+                <div class="form-section">
+                    <h3 class="form-section-title">
+                        <i class="fas fa-cogs"></i>
+                        Search Options
+                    </h3>
+
+                    <div class="search-options">
+                        <div class="option-group">
+                            <label class="checkbox-container">
+                                <input type="checkbox" id="fuzzySearch" checked>
+                                <span class="checkmark"></span>
+                                Enable fuzzy search (typo tolerance)
+                            </label>
+                        </div>
+
+                        <div class="option-group">
+                            <label class="checkbox-container">
+                                <input type="checkbox" id="highlightResults" checked>
+                                <span class="checkmark"></span>
+                                Highlight search terms in results
+                            </label>
+                        </div>
+
+                        <div class="option-group">
+                            <label class="checkbox-container">
+                                <input type="checkbox" id="autoComplete" checked>
+                                <span class="checkmark"></span>
+                                Show suggestions as you type
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="results-per-page">
+                        <label for="resultsPerPage" class="form-label">Results per page:</label>
+                        <select id="resultsPerPage" class="form-select" style="width: auto; display: inline-block; margin-left: 0.5rem;">
+                            <option value="10">10</option>
+                            <option value="25" selected>25</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Search Results -->
+        <div class="api-card" id="resultsCard" style="display: none;">
+            <div class="api-card-header">
+                <h2 class="api-card-title">
+                    <i class="fas fa-list"></i>
+                    Search Results
+                </h2>
+                <div class="results-info" id="resultsInfo">
+                    <!-- Results info will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <div class="search-results" id="searchResults">
+                <!-- Search results will be populated by JavaScript -->
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination-container" id="paginationContainer" style="display: none;">
+                <div class="pagination">
+                    <button id="prevPage" class="btn btn-secondary" disabled>
+                        <i class="fas fa-chevron-left"></i>
+                        Previous
+                    </button>
+                    <span id="pageInfo" class="page-info"></span>
+                    <button id="nextPage" class="btn btn-secondary">
+                        Next
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- No Results -->
+        <div class="api-card" id="noResultsCard" style="display: none;">
+            <div style="text-align: center; padding: 3rem;">
+                <i class="fas fa-search" style="font-size: 4rem; color: var(--text-secondary); margin-bottom: 1rem;"></i>
+                <h3 style="color: var(--accent-blue); margin-bottom: 1rem;">No Results Found</h3>
+                <p style="color: var(--text-secondary); margin-bottom: 2rem;">
+                    Try adjusting your search terms or filters to find what you're looking for.
+                </p>
+                <div class="suggestions">
+                    <h4 style="color: var(--accent); margin-bottom: 1rem;">Search Tips:</h4>
+                    <ul style="color: var(--text-secondary); text-align: left; max-width: 400px; margin: 0 auto;">
+                        <li>Use specific keywords related to your document content</li>
+                        <li>Try different document types or date ranges</li>
+                        <li>Check your spelling and try synonyms</li>
+                        <li>Use quotes for exact phrase matching</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Search Statistics -->
+        <div class="api-card">
+            <div class="api-card-header">
+                <h2 class="api-card-title">
+                    <i class="fas fa-chart-bar"></i>
+                    Search Statistics
+                </h2>
+                <button class="btn btn-secondary" onclick="loadSearchStats()">
+                    <i class="fas fa-refresh"></i>
+                    Refresh Stats
+                </button>
+            </div>
+
+            <div class="analytics-grid" id="searchStats">
+                <!-- Search stats will be populated by JavaScript -->
+            </div>
+        </div>
+
+        <!-- Popular Searches -->
+        <div class="api-card">
+            <div class="api-card-header">
+                <h2 class="api-card-title">
+                    <i class="fas fa-fire"></i>
+                    Popular Search Terms
+                </h2>
+            </div>
+
+            <div id="popularSearches" class="popular-searches">
+                <!-- Popular searches will be populated by JavaScript -->
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>Thaw Zin - Junior Cloud Engineer & IT Support Specialist</p>
+            <p>Email: thawzin252467@gmail.com | Phone: +95 9799745068</p>
+            <div class="domain-note">
+                <i class="fas fa-globe"></i> Domain: pretamane.com (Registered and Configured)
+            </div>
+            <p class="text-secondary">Built with Linux-inspired design and Ayu Mirage color theme</p>
+        </div>
+    </footer>
+
+    <script src="/assets/js/api-client.js"></script>
+    <script src="/assets/js/navigation.js"></script>
+    <script>
+        // Document search application
+        class DocumentSearch {
+            constructor() {
+                this.currentQuery = '';
+                this.currentPage = 1;
+                this.totalPages = 1;
+                this.searchResults = [];
+                this.searchHistory = [];
+                this.isSearching = false;
+                this.searchTimeout = null;
+
+                this.initialize();
+            }
+
+            initialize() {
+                console.log('Initializing document search...');
+
+                this.setupSearchInput();
+                this.setupFilters();
+                this.setupSearchButton();
+                this.setupPagination();
+                this.setupAutoComplete();
+
+                // Load initial search statistics
+                this.loadSearchStats();
+                this.loadPopularSearches();
+            }
+
+            setupSearchInput() {
+                const searchInput = document.getElementById('searchQuery');
+                const clearBtn = document.getElementById('clearSearch');
+
+                searchInput.addEventListener('input', (e) => {
+                    const query = e.target.value.trim();
+
+                    if (query) {
+                        clearBtn.style.display = 'block';
+                        this.debouncedSearch(query);
+                    } else {
+                        clearBtn.style.display = 'none';
+                        this.clearResults();
+                    }
+                });
+
+                clearBtn.addEventListener('click', () => {
+                    searchInput.value = '';
+                    clearBtn.style.display = 'none';
+                    this.clearResults();
+                });
+            }
+
+            setupFilters() {
+                const filters = ['filterDocumentType', 'filterContactId', 'filterStatus', 'filterDateFrom'];
+
+                filters.forEach(filterId => {
+                    const element = document.getElementById(filterId);
+                    if (element) {
+                        element.addEventListener('change', () => {
+                            if (this.currentQuery) {
+                                this.performSearch(this.currentQuery);
+                            }
+                        });
+                    }
+                });
+            }
+
+            setupSearchButton() {
+                const searchBtn = document.getElementById('searchBtn');
+
+                searchBtn.addEventListener('click', () => {
+                    const query = document.getElementById('searchQuery').value.trim();
+                    if (query) {
+                        this.performSearch(query);
+                    }
+                });
+
+                // Enter key search
+                document.getElementById('searchQuery').addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        const query = e.target.value.trim();
+                        if (query) {
+                            this.performSearch(query);
+                        }
+                    }
+                });
+            }
+
+            setupPagination() {
+                const prevBtn = document.getElementById('prevPage');
+                const nextBtn = document.getElementById('nextPage');
+
+                prevBtn.addEventListener('click', () => {
+                    if (this.currentPage > 1) {
+                        this.currentPage--;
+                        this.displayResults();
+                    }
+                });
+
+                nextBtn.addEventListener('click', () => {
+                    if (this.currentPage < this.totalPages) {
+                        this.currentPage++;
+                        this.displayResults();
+                    }
+                });
+            }
+
+            setupAutoComplete() {
+                const searchInput = document.getElementById('searchQuery');
+
+                // Load search history for autocomplete
+                const savedHistory = localStorage.getItem('searchHistory');
+                if (savedHistory) {
+                    this.searchHistory = JSON.parse(savedHistory);
+                }
+            }
+
+            debouncedSearch(query) {
+                clearTimeout(this.searchTimeout);
+                this.searchTimeout = setTimeout(() => {
+                    this.performSearch(query);
+                }, 300);
+            }
+
+            async performSearch(query) {
+                if (this.isSearching) return;
+
+                this.isSearching = true;
+                this.currentQuery = query;
+                this.currentPage = 1;
+
+                const searchBtn = document.getElementById('searchBtn');
+                loadingManager.setLoading(searchBtn, true);
+
+                try {
+                    const filters = this.getSearchFilters();
+                    const searchData = {
+                        query: query,
+                        filters: filters,
+                        limit: parseInt(document.getElementById('resultsPerPage').value)
+                    };
+
+                    const results = await apiClient.post('/documents/search', searchData);
+
+                    this.searchResults = results.results || [];
+                    this.totalPages = Math.ceil(results.total_count / searchData.limit);
+
+                    this.displayResults();
+
+                    // Add to search history
+                    this.addToSearchHistory(query);
+
+                } catch (error) {
+                    console.error('Search error:', error);
+                    notificationManager.show(`Search failed: ${error.message}`, 'error');
+                    this.showNoResults();
+                } finally {
+                    this.isSearching = false;
+                    loadingManager.setLoading(searchBtn, false);
+                }
+            }
+
+            getSearchFilters() {
+                const filters = {};
+
+                const documentType = document.getElementById('filterDocumentType').value;
+                if (documentType) filters.document_type = documentType;
+
+                const contactId = document.getElementById('filterContactId').value;
+                if (contactId) filters.contact_id = contactId;
+
+                const status = document.getElementById('filterStatus').value;
+                if (status) filters.processing_status = status;
+
+                const dateFrom = document.getElementById('filterDateFrom').value;
+                if (dateFrom) filters.upload_date_from = dateFrom;
+
+                return filters;
+            }
+
+            displayResults() {
+                const resultsCard = document.getElementById('resultsCard');
+                const noResultsCard = document.getElementById('noResultsCard');
+                const searchResults = document.getElementById('searchResults');
+                const resultsInfo = document.getElementById('resultsInfo');
+                const paginationContainer = document.getElementById('paginationContainer');
+
+                if (this.searchResults.length === 0) {
+                    resultsCard.style.display = 'none';
+                    noResultsCard.style.display = 'block';
+                    return;
+                }
+
+                resultsCard.style.display = 'block';
+                noResultsCard.style.display = 'none';
+
+                // Calculate pagination
+                const limit = parseInt(document.getElementById('resultsPerPage').value);
+                const startIndex = (this.currentPage - 1) * limit;
+                const endIndex = Math.min(startIndex + limit, this.searchResults.length);
+                const pageResults = this.searchResults.slice(startIndex, endIndex);
+
+                // Update results info
+                const totalCount = this.searchResults.length;
+                resultsInfo.innerHTML = `
+                    <div class="results-info" style="display: flex; align-items: center; gap: 1rem; color: var(--text-secondary);">
+                        <span><strong>${totalCount}</strong> results found</span>
+                        <span>Page <strong>${this.currentPage}</strong> of <strong>${this.totalPages}</strong></span>
+                        <span>Query: <strong>"${this.currentQuery}"</strong></span>
+                    </div>
+                `;
+
+                // Render results
+                let html = '';
+                pageResults.forEach(result => {
+                    const uploadDate = new Date(result.upload_timestamp).toLocaleDateString();
+                    const fileSize = this.formatFileSize(result.size || 0);
+                    const statusClass = this.getStatusClass(result.processing_status);
+
+                    html += `
+                        <div class="search-result-item">
+                            <div class="search-result-header">
+                                <div class="search-result-title">
+                                    <i class="fas fa-file-alt"></i>
+                                    ${this.highlightSearchTerms(result.filename, this.currentQuery)}
+                                </div>
+                                <div class="status-badge ${statusClass}">
+                                    ${result.processing_status || 'unknown'}
+                                </div>
+                            </div>
+
+                            <div class="search-result-meta">
+                                <span><i class="fas fa-user"></i> Contact: ${result.contact_id}</span>
+                                <span><i class="fas fa-tag"></i> Type: ${result.document_type}</span>
+                                <span><i class="fas fa-weight"></i> Size: ${fileSize}</span>
+                                <span><i class="fas fa-calendar"></i> Uploaded: ${uploadDate}</span>
+                            </div>
+
+                            <div class="search-result-content">
+                                ${this.highlightSearchTerms(result.text_content || 'No preview available', this.currentQuery)}
+                            </div>
+
+                            <div class="result-actions" style="margin-top: 1rem;">
+                                <button class="btn btn-secondary" onclick="documentSearch.viewDocument('${result.document_id}')">
+                                    <i class="fas fa-eye"></i>
+                                    View Details
+                                </button>
+                                <button class="btn btn-secondary" onclick="documentSearch.downloadDocument('${result.document_id}')">
+                                    <i class="fas fa-download"></i>
+                                    Download
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                searchResults.innerHTML = html;
+
+                // Update pagination
+                this.updatePagination();
+            }
+
+            updatePagination() {
+                const prevBtn = document.getElementById('prevPage');
+                const nextBtn = document.getElementById('nextPage');
+                const pageInfo = document.getElementById('pageInfo');
+                const paginationContainer = document.getElementById('paginationContainer');
+
+                prevBtn.disabled = this.currentPage <= 1;
+                nextBtn.disabled = this.currentPage >= this.totalPages;
+
+                const limit = parseInt(document.getElementById('resultsPerPage').value);
+                const startIndex = (this.currentPage - 1) * limit + 1;
+                const endIndex = Math.min(this.currentPage * limit, this.searchResults.length);
+
+                pageInfo.textContent = `Showing ${startIndex}-${endIndex} of ${this.searchResults.length} results`;
+                paginationContainer.style.display = this.totalPages > 1 ? 'block' : 'none';
+            }
+
+            highlightSearchTerms(text, query) {
+                if (!query || !text) return text;
+
+                const terms = query.split(' ').filter(term => term.length > 0);
+                let highlightedText = text;
+
+                terms.forEach(term => {
+                    const regex = new RegExp(`(${this.escapeRegExp(term)})`, 'gi');
+                    highlightedText = highlightedText.replace(regex, '<mark style="background: var(--accent-blue); color: var(--bg-primary); padding: 2px 4px; border-radius: 2px;">$1</mark>');
+                });
+
+                return highlightedText;
+            }
+
+            escapeRegExp(string) {
+                return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            }
+
+            getStatusClass(status) {
+                const statusMap = {
+                    'completed': 'status-success',
+                    'processing': 'status-warning',
+                    'pending': 'status-info',
+                    'failed': 'status-error'
+                };
+                return statusMap[status] || 'status-info';
+            }
+
+            formatFileSize(bytes) {
+                if (bytes === 0) return '0 Bytes';
+                const k = 1024;
+                const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+                const i = Math.floor(Math.log(bytes) / Math.log(k));
+                return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+            }
+
+            clearResults() {
+                this.searchResults = [];
+                this.currentQuery = '';
+                this.currentPage = 1;
+
+                document.getElementById('resultsCard').style.display = 'none';
+                document.getElementById('noResultsCard').style.display = 'none';
+                document.getElementById('paginationContainer').style.display = 'none';
+            }
+
+            showNoResults() {
+                document.getElementById('resultsCard').style.display = 'none';
+                document.getElementById('noResultsCard').style.display = 'block';
+            }
+
+            addToSearchHistory(query) {
+                // Remove if already exists
+                this.searchHistory = this.searchHistory.filter(q => q !== query);
+
+                // Add to beginning
+                this.searchHistory.unshift(query);
+
+                // Keep only last 10 searches
+                this.searchHistory = this.searchHistory.slice(0, 10);
+
+                // Save to localStorage
+                localStorage.setItem('searchHistory', JSON.stringify(this.searchHistory));
+            }
+
+            async loadSearchStats() {
+                const searchStats = document.getElementById('searchStats');
+
+                try {
+                    // This would typically call an API endpoint to get search statistics
+                    // For now, we'll show mock data based on current results
+                    const totalSearches = this.searchHistory.length;
+                    const uniqueQueries = new Set(this.searchHistory).size;
+                    const avgResults = this.searchResults.length || 0;
+
+                    const html = `
+                        <div class="analytics-card">
+                            <div class="analytics-value">${totalSearches}</div>
+                            <div class="analytics-label">Total Searches</div>
+                            <div class="analytics-change positive">
+                                <i class="fas fa-search"></i>
+                                Search activity
+                            </div>
+                        </div>
+
+                        <div class="analytics-card">
+                            <div class="analytics-value">${uniqueQueries}</div>
+                            <div class="analytics-label">Unique Queries</div>
+                            <div class="analytics-change info">
+                                <i class="fas fa-list-alt"></i>
+                                Different search terms
+                            </div>
+                        </div>
+
+                        <div class="analytics-card">
+                            <div class="analytics-value">${avgResults}</div>
+                            <div class="analytics-label">Avg Results</div>
+                            <div class="analytics-change positive">
+                                <i class="fas fa-chart-line"></i>
+                                Per search
+                            </div>
+                        </div>
+
+                        <div class="analytics-card">
+                            <div class="analytics-value">${this.searchResults.length}</div>
+                            <div class="analytics-label">Current Results</div>
+                            <div class="analytics-change info">
+                                <i class="fas fa-file-alt"></i>
+                                Found documents
+                            </div>
+                        </div>
+                    `;
+
+                    searchStats.innerHTML = html;
+
+                } catch (error) {
+                    console.error('Error loading search stats:', error);
+                    searchStats.innerHTML = `
+                        <div class="error-container">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <span>Unable to load search statistics.</span>
+                        </div>
+                    `;
+                }
+            }
+
+            async loadPopularSearches() {
+                const popularSearches = document.getElementById('popularSearches');
+
+                // Show recent search history
+                if (this.searchHistory.length > 0) {
+                    let html = '<div class="popular-tags">';
+
+                    this.searchHistory.forEach((query, index) => {
+                        html += `
+                            <span class="popular-tag" onclick="documentSearch.quickSearch('${query}')" style="cursor: pointer;">
+                                ${query}
+                            </span>
+                        `;
+                    });
+
+                    html += '</div>';
+                    popularSearches.innerHTML = html;
+                } else {
+                    popularSearches.innerHTML = `
+                        <p style="text-align: center; color: var(--text-secondary); padding: 2rem;">
+                            <i class="fas fa-info-circle"></i>
+                            Your recent searches will appear here.
+                        </p>
+                    `;
+                }
+            }
+
+            quickSearch(query) {
+                document.getElementById('searchQuery').value = query;
+                document.getElementById('clearSearch').style.display = 'block';
+                this.performSearch(query);
+            }
+
+            viewDocument(documentId) {
+                // This would open a document viewer or download the file
+                notificationManager.show(`Opening document: ${documentId}`, 'info');
+                // In a real implementation, you might redirect to a viewer or download the file
+            }
+
+            downloadDocument(documentId) {
+                // This would trigger a file download
+                notificationManager.show(`Downloading document: ${documentId}`, 'info');
+                // In a real implementation, you might call a download API endpoint
+            }
+        }
+
+        // Global search functions
+        window.documentSearch = {
+            quickSearch: function(query) {
+                if (window.searchApp) {
+                    window.searchApp.quickSearch(query);
+                }
+            },
+
+            viewDocument: function(documentId) {
+                if (window.searchApp) {
+                    window.searchApp.viewDocument(documentId);
+                }
+            },
+
+            downloadDocument: function(documentId) {
+                if (window.searchApp) {
+                    window.searchApp.downloadDocument(documentId);
+                }
+            }
+        };
+
+        // Initialize the search application when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            window.searchApp = new DocumentSearch();
+        });
+    </script>
+</body>
+</html>

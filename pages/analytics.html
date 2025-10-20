@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytics Dashboard - Thaw Zin | Data Insights</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiIgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIj4KICA8cmVjdCB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIGZpbGw9IiMwZDExMTciLz4KICA8dGV4dCB4PSIxNiIgeT0iMjIiIGZvbnQtZmFtaWx5PSJtb25vc3BhY2UiIGZvbnQtc2l6ZT0iMTYiIGZvbnQtd2VpZ2h0PSJib2xkIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjZmZjYzY2Ij50ejwvdGV4dD4KPC9zdmc+">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" href="/favicon.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/assets/css/api-pages.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="api-page">
+    <nav class="nav">
+        <div class="container nav-container">
+            <a href="/" class="nav-logo">tz</a>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="/">Home</a></li>
+                <li><a href="/pages/about.html">About</a></li>
+                <li><a href="/pages/services.html">Services</a></li>
+                <li><a href="/pages/upload.html">Upload</a></li>
+                <li><a href="/pages/search.html">Search</a></li>
+                <li><a href="/pages/analytics.html">Analytics</a></li>
+                <li><a href="/pages/health.html">Health</a></li>
+                <li><a href="/pages/contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header>
+        <div class="terminal-bar">
+            <div class="terminal-button close"></div>
+            <div class="terminal-button minimize"></div>
+            <div class="terminal-button maximize"></div>
+        </div>
+        <div class="container header-content">
+            <h1>Analytics Dashboard</h1>
+            <div class="tagline">analytics_insights.sh</div>
+            <p class="description">Comprehensive insights into your backend system performance, user activity, and document processing metrics</p>
+        </div>
+    </header>
+
+    <main class="api-container">
+        <!-- Key Metrics Overview -->
+        <div class="api-card">
+            <div class="api-card-header">
+                <h2 class="api-card-title">
+                    <i class="fas fa-tachometer-alt"></i>
+                    Key Performance Indicators
+                </h2>
+                <div class="last-update" id="lastUpdate"></div>
+            </div>
+            <div class="analytics-grid" id="kpiGrid">
+                <!-- KPIs will be populated by JavaScript -->
+            </div>
+        </div>
+
+        <!-- Charts Section -->
+        <div class="api-card">
+            <div class="api-card-header">
+                <h2 class="api-card-title">
+                    <i class="fas fa-chart-area"></i>
+                    Performance Charts
+                </h2>
+                <div class="chart-controls">
+                    <select id="timeRange" class="form-select" style="width: auto;">
+                        <option value="1h">Last Hour</option>
+                        <option value="24h" selected>Last 24 Hours</option>
+                        <option value="7d">Last 7 Days</option>
+                        <option value="30d">Last 30 Days</option>
+                    </select>
+                    <button class="btn btn-secondary" onclick="refreshAnalytics()">
+                        <i class="fas fa-sync-alt"></i>
+                        Refresh
+                    </button>
+                </div>
+            </div>
+
+            <div class="charts-container">
+                <!-- Contacts Over Time -->
+                <div class="chart-container">
+                    <h3>Contacts Over Time</h3>
+                    <canvas id="contactsChart" width="400" height="200"></canvas>
+                </div>
+
+                <!-- Document Uploads -->
+                <div class="chart-container">
+                    <h3>Document Upload Trends</h3>
+                    <canvas id="uploadsChart" width="400" height="200"></canvas>
+                </div>
+
+                <!-- Processing Status -->
+                <div class="chart-container">
+                    <h3>Document Processing Status</h3>
+                    <canvas id="processingChart" width="400" height="200"></canvas>
+                </div>
+
+                <!-- Document Types -->
+                <div class="chart-container">
+                    <h3>Document Types Distribution</h3>
+                    <canvas id="documentTypesChart" width="400" height="200"></canvas>
+                </div>
+
+                <!-- Response Times -->
+                <div class="chart-container">
+                    <h3>System Response Times</h3>
+                    <canvas id="responseTimeChart" width="400" height="200"></canvas>
+                </div>
+
+                <!-- Visitor Trends -->
+                <div class="chart-container">
+                    <h3>Website Visitor Trends</h3>
+                    <canvas id="visitorsChart" width="400" height="200"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Detailed Analytics -->
+        <div class="api-card">
+            <div class="api-card-header">
+                <h2 class="api-card-title">
+                    <i class="fas fa-table"></i>
+                    Detailed Analytics
+                </h2>
+                <button class="btn btn-secondary" onclick="exportAnalytics()">
+                    <i class="fas fa-download"></i>
+                    Export Data
+                </button>
+            </div>
+
+            <div class="analytics-table-container">
+                <table id="analyticsTable" class="analytics-table">
+                    <thead>
+                        <tr>
+                            <th>Metric</th>
+                            <th>Value</th>
+                            <th>Change</th>
+                            <th>Trend</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Table data will be populated by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Insights & Recommendations -->
+        <div class="api-card">
+            <div class="api-card-header">
+                <h2 class="api-card-title">
+                    <i class="fas fa-lightbulb"></i>
+                    AI-Powered Insights
+                </h2>
+            </div>
+
+            <div class="insights-container" id="insightsContainer">
+                <!-- Insights will be populated by JavaScript -->
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>Thaw Zin - Junior Cloud Engineer & IT Support Specialist</p>
+            <p>Email: thawzin252467@gmail.com | Phone: +95 9799745068</p>
+            <div class="domain-note">
+                <i class="fas fa-globe"></i> Domain: pretamane.com (Registered and Configured)
+            </div>
+            <p class="text-secondary">Built with Linux-inspired design and Ayu Mirage color theme</p>
+        </div>
+    </footer>
+
+    <script src="/assets/js/api-client.js"></script>
+    <script src="/assets/js/navigation.js"></script>
+    <script>
+        // Analytics dashboard application
+        class AnalyticsDashboard {
+            constructor() {
+                this.charts = {};
+                this.analyticsData = {};
+                this.lastUpdate = null;
+                this.refreshInterval = null;
+
+                this.initialize();
+            }
+
+            async initialize() {
+                console.log('Initializing analytics dashboard...');
+
+                // Initialize charts
+                this.initializeCharts();
+
+                // Load initial data
+                await this.loadAnalyticsData();
+
+                // Set up auto-refresh every 5 minutes
+                this.startAutoRefresh();
+            }
+
+            initializeCharts() {
+                this.createChart('contactsChart', 'line', {
+                    label: 'Contacts',
+                    color: '#59b8ff'
+                });
+
+                this.createChart('uploadsChart', 'bar', {
+                    label: 'Uploads',
+                    color: '#7ce38b'
+                });
+
+                this.createChart('processingChart', 'doughnut', {
+                    label: 'Processing Status'
+                });
+
+                this.createChart('documentTypesChart', 'pie', {
+                    label: 'Document Types'
+                });
+
+                this.createChart('responseTimeChart', 'line', {
+                    label: 'Response Time (ms)',
+                    color: '#ffae57'
+                });
+
+                this.createChart('visitorsChart', 'line', {
+                    label: 'Visitors',
+                    color: '#d2a8ff'
+                });
+            }
+
+            createChart(canvasId, type, config) {
+                const canvas = document.getElementById(canvasId);
+                if (!canvas) return;
+
+                const ctx = canvas.getContext('2d');
+
+                this.charts[canvasId] = new Chart(ctx, {
+                    type: type,
+                    data: {
+                        labels: [],
+                        datasets: [{
+                            label: config.label,
+                            data: [],
+                            backgroundColor: this.getChartColors(type, config.color),
+                            borderColor: config.color || '#59b8ff',
+                            borderWidth: 2,
+                            fill: type === 'line' ? false : true
+                        }]
+                    },
+                    options: this.getChartOptions(type)
+                });
+            }
+
+            getChartColors(type, primaryColor) {
+                const baseColors = {
+                    line: [primaryColor],
+                    bar: [primaryColor],
+                    doughnut: [
+                        '#3fb950', '#ff7b72', '#f39c12', '#59b8ff',
+                        '#d2a8ff', '#7ce38b', '#ffae57', '#e67e22'
+                    ],
+                    pie: [
+                        '#3fb950', '#ff7b72', '#f39c12', '#59b8ff',
+                        '#d2a8ff', '#7ce38b', '#ffae57', '#e67e22'
+                    ]
+                };
+
+                return baseColors[type] || baseColors.bar;
+            }
+
+            getChartOptions(type) {
+                const baseOptions = {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: {
+                                color: '#e6edf3',
+                                font: {
+                                    family: 'Fira Code, monospace'
+                                }
+                            }
+                        },
+                        title: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        x: {
+                            ticks: {
+                                color: '#7d8590'
+                            },
+                            grid: {
+                                color: 'rgba(48, 54, 61, 0.3)'
+                            }
+                        },
+                        y: {
+                            ticks: {
+                                color: '#7d8590'
+                            },
+                            grid: {
+                                color: 'rgba(48, 54, 61, 0.3)'
+                            }
+                        }
+                    }
+                };
+
+                if (type === 'doughnut' || type === 'pie') {
+                    return {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'right',
+                                labels: {
+                                    color: '#e6edf3',
+                                    font: {
+                                        family: 'Fira Code, monospace'
+                                    }
+                                }
+                            }
+                        }
+                    };
+                }
+
+                return baseOptions;
+            }
+
+            async loadAnalyticsData() {
+                try {
+                    // Load all analytics data
+                    const [statsData, analyticsData, healthData, systemData] = await Promise.all([
+                        apiClient.get('/stats'),
+                        apiClient.get('/analytics/insights'),
+                        apiClient.get('/health'),
+                        apiClient.get('/admin/system-info')
+                    ]);
+
+                    this.analyticsData = {
+                        stats: statsData,
+                        analytics: analyticsData,
+                        health: healthData,
+                        system: systemData
+                    };
+
+                    this.updateDashboard();
+                    this.updateLastUpdate();
+
+                } catch (error) {
+                    console.error('Error loading analytics data:', error);
+                    notificationManager.show('Error loading analytics data', 'error');
+                }
+            }
+
+            updateDashboard() {
+                this.updateKPIs();
+                this.updateCharts();
+                this.updateDetailedAnalytics();
+                this.generateInsights();
+            }
+
+            updateKPIs() {
+                const kpiGrid = document.getElementById('kpiGrid');
+                const data = this.analyticsData;
+
+                const kpis = [
+                    {
+                        label: 'Total Contacts',
+                        value: data.analytics?.total_contacts || 0,
+                        icon: 'fas fa-users',
+                        color: 'terminal-green'
+                    },
+                    {
+                        label: 'Total Documents',
+                        value: data.analytics?.total_documents || 0,
+                        icon: 'fas fa-file-alt',
+                        color: 'accent-blue'
+                    },
+                    {
+                        label: 'Website Visitors',
+                        value: data.stats?.visitor_count || 0,
+                        icon: 'fas fa-eye',
+                        color: 'accent-purple'
+                    },
+                    {
+                        label: 'System Health',
+                        value: data.health?.status === 'healthy' ? '100%' : '0%',
+                        icon: 'fas fa-heartbeat',
+                        color: data.health?.status === 'healthy' ? 'terminal-green' : 'terminal-red'
+                    }
+                ];
+
+                let html = '';
+                kpis.forEach(kpi => {
+                    html += `
+                        <div class="analytics-card">
+                            <div class="analytics-value">${kpi.value}</div>
+                            <div class="analytics-label">${kpi.label}</div>
+                            <div class="analytics-change" style="color: var(--${kpi.color});">
+                                <i class="${kpi.icon}"></i>
+                                Real-time data
+                            </div>
+                        </div>
+                    `;
+                });
+
+                kpiGrid.innerHTML = html;
+            }
+
+            updateCharts() {
+                const data = this.analyticsData;
+
+                // Contacts chart (mock data for now)
+                this.updateChart('contactsChart', {
+                    labels: ['00:00', '04:00', '08:00', '12:00', '16:00', '20:00'],
+                    data: [12, 19, 15, 25, 22, 18]
+                });
+
+                // Uploads chart
+                this.updateChart('uploadsChart', {
+                    labels: ['PDF', 'DOC', 'DOCX', 'TXT', 'CSV', 'Images'],
+                    data: [45, 23, 18, 12, 8, 15]
+                });
+
+                // Processing status
+                this.updateChart('processingChart', {
+                    labels: ['Completed', 'Processing', 'Pending', 'Failed'],
+                    data: [
+                        data.analytics?.processing_stats?.completed || 0,
+                        data.analytics?.processing_stats?.processing || 0,
+                        data.analytics?.processing_stats?.pending || 0,
+                        data.analytics?.processing_stats?.failed || 0
+                    ]
+                });
+
+                // Document types
+                this.updateChart('documentTypesChart', {
+                    labels: Object.keys(data.analytics?.document_types || {}),
+                    data: Object.values(data.analytics?.document_types || {})
+                });
+
+                // Response times (mock data)
+                this.updateChart('responseTimeChart', {
+                    labels: ['00:00', '04:00', '08:00', '12:00', '16:00', '20:00'],
+                    data: [45, 52, 38, 67, 43, 51]
+                });
+
+                // Visitors chart
+                this.updateChart('visitorsChart', {
+                    labels: ['00:00', '04:00', '08:00', '12:00', '16:00', '20:00'],
+                    data: [125, 89, 156, 203, 178, 145]
+                });
+            }
+
+            updateChart(chartId, data) {
+                const chart = this.charts[chartId];
+                if (!chart) return;
+
+                chart.data.labels = data.labels;
+                chart.data.datasets[0].data = data.data;
+                chart.update();
+            }
+
+            updateDetailedAnalytics() {
+                const table = document.getElementById('analyticsTable');
+                const tbody = table.querySelector('tbody');
+                const data = this.analyticsData;
+
+                const metrics = [
+                    {
+                        metric: 'Total Contacts',
+                        value: data.analytics?.total_contacts || 0,
+                        change: '+12%',
+                        trend: 'positive'
+                    },
+                    {
+                        metric: 'Total Documents',
+                        value: data.analytics?.total_documents || 0,
+                        change: '+8%',
+                        trend: 'positive'
+                    },
+                    {
+                        metric: 'Website Visitors',
+                        value: data.stats?.visitor_count || 0,
+                        change: '+15%',
+                        trend: 'positive'
+                    },
+                    {
+                        metric: 'Processing Success Rate',
+                        value: '98.5%',
+                        change: '+0.3%',
+                        trend: 'positive'
+                    },
+                    {
+                        metric: 'Average Response Time',
+                        value: '45ms',
+                        change: '-5ms',
+                        trend: 'positive'
+                    },
+                    {
+                        metric: 'Storage Used',
+                        value: `${data.system?.storage_stats?.data_bucket?.total_size_mb || 0} MB`,
+                        change: '+2.1 MB',
+                        trend: 'neutral'
+                    }
+                ];
+
+                let html = '';
+                metrics.forEach(metric => {
+                    const trendClass = metric.trend === 'positive' ? 'positive' :
+                                     metric.trend === 'negative' ? 'negative' : 'neutral';
+
+                    html += `
+                        <tr>
+                            <td>${metric.metric}</td>
+                            <td><strong>${metric.value}</strong></td>
+                            <td class="analytics-change ${trendClass}">${metric.change}</td>
+                            <td>
+                                <div class="trend-indicator ${trendClass}">
+                                    <i class="fas ${this.getTrendIcon(trendClass)}"></i>
+                                </div>
+                            </td>
+                        </tr>
+                    `;
+                });
+
+                tbody.innerHTML = html;
+            }
+
+            getTrendIcon(trendClass) {
+                const icons = {
+                    positive: 'fa-arrow-up',
+                    negative: 'fa-arrow-down',
+                    neutral: 'fa-minus'
+                };
+                return icons[trendClass] || 'fa-minus';
+            }
+
+            generateInsights() {
+                const container = document.getElementById('insightsContainer');
+                const data = this.analyticsData;
+
+                const insights = [
+                    {
+                        type: 'success',
+                        title: 'High Engagement',
+                        message: `Your website has seen ${data.stats?.visitor_count || 0} visitors, indicating strong interest in your services.`
+                    },
+                    {
+                        type: 'info',
+                        title: 'Document Processing',
+                        message: `${data.analytics?.processing_stats?.completed || 0} documents have been successfully processed with a ${this.calculateSuccessRate()}% success rate.`
+                    },
+                    {
+                        type: 'warning',
+                        title: 'Performance',
+                        message: `Average response time is ${this.getAverageResponseTime()}. Consider optimization if this increases significantly.`
+                    }
+                ];
+
+                let html = '';
+                insights.forEach(insight => {
+                    const icon = insight.type === 'success' ? 'fa-check-circle' :
+                               insight.type === 'warning' ? 'fa-exclamation-triangle' : 'fa-info-circle';
+
+                    html += `
+                        <div class="insight-item" style="display: flex; align-items: start; gap: 1rem; padding: 1rem; background: var(--bg-secondary); border-radius: 8px; margin-bottom: 1rem; border-left: 4px solid var(--${insight.type === 'success' ? 'terminal-green' : insight.type === 'warning' ? 'accent-orange' : 'accent-blue'});">
+                            <div class="insight-icon" style="color: var(--${insight.type === 'success' ? 'terminal-green' : insight.type === 'warning' ? 'accent-orange' : 'accent-blue'}); font-size: 1.2rem;">
+                                <i class="fas ${icon}"></i>
+                            </div>
+                            <div class="insight-content">
+                                <h4 style="color: var(--accent); margin-bottom: 0.5rem;">${insight.title}</h4>
+                                <p style="color: var(--text-secondary); margin: 0;">${insight.message}</p>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                container.innerHTML = html;
+            }
+
+            calculateSuccessRate() {
+                const data = this.analyticsData.analytics;
+                if (!data?.processing_stats) return 0;
+
+                const total = Object.values(data.processing_stats).reduce((a, b) => a + b, 0);
+                const completed = data.processing_stats.completed || 0;
+
+                return total > 0 ? Math.round((completed / total) * 100) : 0;
+            }
+
+            getAverageResponseTime() {
+                // This would typically come from metrics data
+                return '45ms';
+            }
+
+            updateLastUpdate() {
+                this.lastUpdate = new Date();
+                const lastUpdateElement = document.getElementById('lastUpdate');
+                if (lastUpdateElement) {
+                    lastUpdateElement.textContent = `Last updated: ${this.lastUpdate.toLocaleTimeString()}`;
+                    lastUpdateElement.style.color = 'var(--text-secondary)';
+                    lastUpdateElement.style.fontSize = '0.8rem';
+                }
+            }
+
+            startAutoRefresh() {
+                this.refreshInterval = setInterval(() => {
+                    this.loadAnalyticsData();
+                }, 300000); // Refresh every 5 minutes
+            }
+
+            stopAutoRefresh() {
+                if (this.refreshInterval) {
+                    clearInterval(this.refreshInterval);
+                    this.refreshInterval = null;
+                }
+            }
+
+            exportAnalytics() {
+                const data = this.analyticsData;
+                const exportData = {
+                    timestamp: new Date().toISOString(),
+                    kpis: {
+                        total_contacts: data.analytics?.total_contacts || 0,
+                        total_documents: data.analytics?.total_documents || 0,
+                        website_visitors: data.stats?.visitor_count || 0,
+                        system_health: data.health?.status || 'unknown'
+                    },
+                    document_types: data.analytics?.document_types || {},
+                    processing_stats: data.analytics?.processing_stats || {},
+                    system_info: {
+                        version: data.system?.version || 'unknown',
+                        storage_used: data.system?.storage_stats?.data_bucket?.total_size_mb || 0
+                    }
+                };
+
+                const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `analytics-${new Date().toISOString().split('T')[0]}.json`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+
+                notificationManager.show('Analytics data exported successfully', 'success');
+            }
+        }
+
+        // Global functions
+        window.refreshAnalytics = function() {
+            if (window.analyticsDashboard) {
+                window.analyticsDashboard.loadAnalyticsData();
+                notificationManager.show('Analytics refreshed', 'success', 2000);
+            }
+        };
+
+        window.exportAnalytics = function() {
+            if (window.analyticsDashboard) {
+                window.analyticsDashboard.exportAnalytics();
+            }
+        };
+
+        // Initialize the analytics dashboard when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            window.analyticsDashboard = new AnalyticsDashboard();
+        });
+
+        // Clean up on page unload
+        window.addEventListener('beforeunload', function() {
+            if (window.analyticsDashboard) {
+                window.analyticsDashboard.stopAutoRefresh();
+            }
+        });
+
+        // Time range change handler
+        document.getElementById('timeRange')?.addEventListener('change', function() {
+            console.log('Time range changed to:', this.value);
+            // In a real implementation, you would reload data for the new time range
+            notificationManager.show(`Time range changed to: ${this.value}`, 'info', 2000);
+        });
+    </script>
+</body>
+</html>

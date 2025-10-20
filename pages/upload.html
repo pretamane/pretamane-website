@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document Upload - Thaw Zin | File Management</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiIgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIj4KICA8cmVjdCB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIGZpbGw9IiMwZDExMTciLz4KICA8dGV4dCB4PSIxNiIgeT0iMjIiIGZvbnQtZmFtaWx5PSJtb25vc3BhY2UiIGZvbnQtc2l6ZT0iMTYiIGZvbnQtd2VpZ2h0PSJib2xkIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjZmZjYzY2Ij50ejwvdGV4dD4KPC9zdmc+">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" href="/favicon.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/assets/css/api-pages.css">
+</head>
+<body class="api-page">
+    <nav class="nav">
+        <div class="container nav-container">
+            <a href="/" class="nav-logo">tz</a>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="/">Home</a></li>
+                <li><a href="/pages/about.html">About</a></li>
+                <li><a href="/pages/services.html">Services</a></li>
+                <li><a href="/pages/upload.html">Upload</a></li>
+                <li><a href="/pages/search.html">Search</a></li>
+                <li><a href="/pages/analytics.html">Analytics</a></li>
+                <li><a href="/pages/health.html">Health</a></li>
+                <li><a href="/pages/contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header>
+        <div class="terminal-bar">
+            <div class="terminal-button close"></div>
+            <div class="terminal-button minimize"></div>
+            <div class="terminal-button maximize"></div>
+        </div>
+        <div class="container header-content">
+            <h1>Document Upload Center</h1>
+            <div class="tagline">upload_manager.sh</div>
+            <p class="description">Upload documents, files, and attachments to your backend system with real-time progress tracking</p>
+        </div>
+    </header>
+
+    <main class="api-container">
+        <!-- Upload Form -->
+        <div class="api-card">
+            <div class="api-card-header">
+                <h2 class="api-card-title">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    File Upload
+                </h2>
+                <p class="api-card-subtitle">Upload documents to associate with your contacts and projects</p>
+            </div>
+
+            <div class="api-form">
+                <!-- File Upload Area -->
+                <div class="form-section">
+                    <h3 class="form-section-title">
+                        <i class="fas fa-file"></i>
+                        Select Files
+                    </h3>
+
+                    <div class="file-upload-area" id="fileUploadArea">
+                        <div class="file-upload-icon">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                        </div>
+                        <div class="file-upload-text">
+                            Drag and drop files here, or click to browse
+                        </div>
+                        <div class="file-upload-hint">
+                            Supported formats: PDF, DOC, DOCX, TXT, CSV, XLSX, PPTX, JPG, PNG, GIF
+                            <br>Maximum file size: 50MB
+                        </div>
+                        <input type="file" id="fileInput" class="file-input" multiple accept=".pdf,.doc,.docx,.txt,.csv,.xlsx,.pptx,.jpg,.jpeg,.png,.gif">
+                    </div>
+
+                    <!-- Selected Files List -->
+                    <div id="selectedFiles" class="selected-files" style="display: none; margin-top: 1rem;">
+                        <h4 style="color: var(--accent-blue); margin-bottom: 1rem;">
+                            <i class="fas fa-list"></i>
+                            Selected Files
+                        </h4>
+                        <div id="filesList" class="files-list"></div>
+                    </div>
+                </div>
+
+                <!-- Document Details -->
+                <div class="form-section">
+                    <h3 class="form-section-title">
+                        <i class="fas fa-info-circle"></i>
+                        Document Details
+                    </h3>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="contactId" class="form-label">Contact ID *</label>
+                            <input type="text" id="contactId" name="contactId" class="form-input" placeholder="e.g., contact_123456_abc123" required>
+                            <div class="form-hint">Use the contact ID from your contact form submission</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="documentType" class="form-label">Document Type *</label>
+                            <select id="documentType" name="documentType" class="form-select" required>
+                                <option value="">Select document type</option>
+                                <option value="proposal">Business Proposal</option>
+                                <option value="contract">Contract</option>
+                                <option value="invoice">Invoice</option>
+                                <option value="report">Report</option>
+                                <option value="presentation">Presentation</option>
+                                <option value="technical_doc">Technical Document</option>
+                                <option value="image">Image</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="description" class="form-label">Description</label>
+                            <textarea id="description" name="description" class="form-textarea" placeholder="Brief description of the document content..."></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="tags" class="form-label">Tags</label>
+                            <input type="text" id="tags" name="tags" class="form-input" placeholder="e.g., urgent, review, final">
+                            <div class="form-hint">Separate multiple tags with commas</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Upload Progress -->
+                <div class="form-section">
+                    <h3 class="form-section-title">
+                        <i class="fas fa-spinner"></i>
+                        Upload Status
+                    </h3>
+
+                    <div id="uploadProgress" class="upload-progress" style="display: none;">
+                        <div class="progress-container">
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="progressFill"></div>
+                            </div>
+                            <div class="progress-text" id="progressText">Uploading: 0%</div>
+                        </div>
+
+                        <div id="uploadDetails" class="upload-details" style="margin-top: 1rem; color: var(--text-secondary);">
+                            <!-- Upload details will be populated by JavaScript -->
+                        </div>
+                    </div>
+
+                    <button id="uploadBtn" class="btn btn-primary" style="width: 100%; margin-top: 1rem;" disabled>
+                        <i class="fas fa-upload"></i>
+                        Upload Files
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Upload History -->
+        <div class="api-card">
+            <div class="api-card-header">
+                <h2 class="api-card-title">
+                    <i class="fas fa-history"></i>
+                    Recent Uploads
+                </h2>
+                <button class="btn btn-secondary" onclick="loadUploadHistory()">
+                    <i class="fas fa-refresh"></i>
+                    Refresh
+                </button>
+            </div>
+
+            <div id="uploadHistory" class="upload-history">
+                <p style="color: var(--text-secondary); text-align: center; padding: 2rem;">
+                    <i class="fas fa-info-circle"></i>
+                    Click refresh to load recent upload history
+                </p>
+            </div>
+        </div>
+
+        <!-- Help Section -->
+        <div class="api-card">
+            <div class="api-card-header">
+                <h2 class="api-card-title">
+                    <i class="fas fa-question-circle"></i>
+                    How to Use
+                </h2>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
+                <div class="help-step">
+                    <div style="display: flex; align-items: center; gap: 0.5rem; color: var(--terminal-green); font-weight: bold; margin-bottom: 0.5rem;">
+                        <i class="fas fa-1"></i>
+                        <span>Select Files</span>
+                    </div>
+                    <p style="color: var(--text-secondary); margin: 0;">
+                        Drag and drop files or click to browse. Multiple files can be selected.
+                    </p>
+                </div>
+
+                <div class="help-step">
+                    <div style="display: flex; align-items: center; gap: 0.5rem; color: var(--terminal-green); font-weight: bold; margin-bottom: 0.5rem;">
+                        <i class="fas fa-2"></i>
+                        <span>Enter Details</span>
+                    </div>
+                    <p style="color: var(--text-secondary); margin: 0;">
+                        Provide contact ID, document type, and optional description/tags.
+                    </p>
+                </div>
+
+                <div class="help-step">
+                    <div style="display: flex; align-items: center; gap: 0.5rem; color: var(--terminal-green); font-weight: bold; margin-bottom: 0.5rem;">
+                        <i class="fas fa-3"></i>
+                        <span>Upload</span>
+                    </div>
+                    <p style="color: var(--text-secondary); margin: 0;">
+                        Click upload and monitor progress. Files are processed and indexed automatically.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>Thaw Zin - Junior Cloud Engineer & IT Support Specialist</p>
+            <p>Email: thawzin252467@gmail.com | Phone: +95 9799745068</p>
+            <div class="domain-note">
+                <i class="fas fa-globe"></i> Domain: pretamane.com (Registered and Configured)
+            </div>
+            <p class="text-secondary">Built with Linux-inspired design and Ayu Mirage color theme</p>
+        </div>
+    </footer>
+
+    <script src="/assets/js/api-client.js"></script>
+    <script src="/assets/js/navigation.js"></script>
+    <script>
+        // Document upload application
+        class DocumentUploader {
+            constructor() {
+                this.selectedFiles = [];
+                this.isUploading = false;
+                this.initialize();
+            }
+
+            initialize() {
+                console.log('Initializing document uploader...');
+
+                this.setupFileUpload();
+                this.setupFormValidation();
+                this.setupUploadButton();
+
+                // Load recent uploads
+                this.loadUploadHistory();
+            }
+
+            setupFileUpload() {
+                const fileUploadArea = document.getElementById('fileUploadArea');
+                const fileInput = document.getElementById('fileInput');
+
+                // Drag and drop functionality
+                fileUploadArea.addEventListener('click', () => {
+                    fileInput.click();
+                });
+
+                fileUploadArea.addEventListener('dragover', (e) => {
+                    e.preventDefault();
+                    fileUploadArea.classList.add('dragover');
+                });
+
+                fileUploadArea.addEventListener('dragleave', () => {
+                    fileUploadArea.classList.remove('dragover');
+                });
+
+                fileUploadArea.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    fileUploadArea.classList.remove('dragover');
+
+                    const files = Array.from(e.dataTransfer.files);
+                    this.handleFiles(files);
+                });
+
+                // File input change
+                fileInput.addEventListener('change', (e) => {
+                    const files = Array.from(e.target.files);
+                    this.handleFiles(files);
+                });
+            }
+
+            handleFiles(files) {
+                const validFiles = files.filter(file => this.validateFile(file));
+
+                if (validFiles.length > 0) {
+                    this.selectedFiles = validFiles;
+                    this.renderSelectedFiles();
+                    this.enableUploadButton();
+                }
+
+                if (files.length !== validFiles.length) {
+                    const invalidCount = files.length - validFiles.length;
+                    notificationManager.show(`${invalidCount} file(s) skipped due to invalid type or size`, 'warning');
+                }
+            }
+
+            validateFile(file) {
+                // Check file size (50MB limit)
+                const maxSize = 50 * 1024 * 1024; // 50MB
+                if (file.size > maxSize) {
+                    notificationManager.show(`File "${file.name}" is too large. Maximum size is 50MB.`, 'error');
+                    return false;
+                }
+
+                // Check file type
+                const allowedTypes = [
+                    'application/pdf',
+                    'application/msword',
+                    'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                    'text/plain',
+                    'text/csv',
+                    'application/vnd.ms-excel',
+                    'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                    'application/vnd.ms-powerpoint',
+                    'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+                    'image/jpeg',
+                    'image/jpg',
+                    'image/png',
+                    'image/gif'
+                ];
+
+                const allowedExtensions = ['.pdf', '.doc', '.docx', '.txt', '.csv', '.xlsx', '.pptx', '.jpg', '.jpeg', '.png', '.gif'];
+
+                const fileExtension = file.name.toLowerCase().substring(file.name.lastIndexOf('.'));
+
+                if (!allowedTypes.includes(file.type) && !allowedExtensions.includes(fileExtension)) {
+                    notificationManager.show(`File "${file.name}" has an unsupported format.`, 'error');
+                    return false;
+                }
+
+                return true;
+            }
+
+            renderSelectedFiles() {
+                const selectedFilesDiv = document.getElementById('selectedFiles');
+                const filesListDiv = document.getElementById('filesList');
+
+                selectedFilesDiv.style.display = 'block';
+
+                let html = '';
+                this.selectedFiles.forEach((file, index) => {
+                    const fileSize = this.formatFileSize(file.size);
+                    const fileType = file.type || 'Unknown';
+
+                    html += `
+                        <div class="selected-file" style="display: flex; align-items: center; gap: 1rem; padding: 1rem; background: var(--bg-secondary); border-radius: 6px; margin-bottom: 0.5rem; border: 1px solid var(--border);">
+                            <div class="file-icon" style="font-size: 1.5rem; color: var(--accent-blue);">
+                                <i class="fas fa-file-alt"></i>
+                            </div>
+                            <div class="file-info" style="flex: 1;">
+                                <div class="file-name" style="font-weight: bold; color: var(--text-primary);">${file.name}</div>
+                                <div class="file-meta" style="font-size: 0.8rem; color: var(--text-secondary);">
+                                    ${fileSize} • ${fileType}
+                                </div>
+                            </div>
+                            <button class="btn btn-secondary" onclick="documentUploader.removeFile(${index})" style="padding: 0.5rem;">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    `;
+                });
+
+                filesListDiv.innerHTML = html;
+            }
+
+            removeFile(index) {
+                this.selectedFiles.splice(index, 1);
+                this.renderSelectedFiles();
+
+                if (this.selectedFiles.length === 0) {
+                    document.getElementById('selectedFiles').style.display = 'none';
+                    this.disableUploadButton();
+                }
+            }
+
+            enableUploadButton() {
+                const uploadBtn = document.getElementById('uploadBtn');
+                uploadBtn.disabled = false;
+            }
+
+            disableUploadButton() {
+                const uploadBtn = document.getElementById('uploadBtn');
+                uploadBtn.disabled = true;
+            }
+
+            setupFormValidation() {
+                const form = document.querySelector('.api-form');
+                this.validator = new FormValidator(form);
+            }
+
+            setupUploadButton() {
+                const uploadBtn = document.getElementById('uploadBtn');
+
+                uploadBtn.addEventListener('click', async () => {
+                    if (this.isUploading) return;
+
+                    // Validate form
+                    if (!this.validator.validateForm()) {
+                        notificationManager.show('Please fix the errors in the form', 'error');
+                        return;
+                    }
+
+                    // Validate files
+                    if (this.selectedFiles.length === 0) {
+                        notificationManager.show('Please select at least one file to upload', 'error');
+                        return;
+                    }
+
+                    await this.uploadFiles();
+                });
+            }
+
+            async uploadFiles() {
+                this.isUploading = true;
+
+                const uploadBtn = document.getElementById('uploadBtn');
+                const uploadProgress = document.getElementById('uploadProgress');
+                const progressFill = document.getElementById('progressFill');
+                const progressText = document.getElementById('progressText');
+                const uploadDetails = document.getElementById('uploadDetails');
+
+                // Show progress
+                uploadProgress.style.display = 'block';
+                loadingManager.setLoading(uploadBtn, true);
+
+                try {
+                    const contactId = document.getElementById('contactId').value;
+                    const documentType = document.getElementById('documentType').value;
+                    const description = document.getElementById('description').value;
+                    const tags = document.getElementById('tags').value;
+
+                    let completed = 0;
+                    const total = this.selectedFiles.length;
+
+                    uploadDetails.innerHTML = `
+                        <p>Preparing to upload ${total} file(s)...</p>
+                        <div id="currentFileStatus"></div>
+                    `;
+
+                    for (const file of this.selectedFiles) {
+                        const currentFileStatus = document.getElementById('currentFileStatus');
+                        currentFileStatus.innerHTML = `<p>Uploading: <strong>${file.name}</strong></p>`;
+
+                        const fileData = {
+                            file: file,
+                            contact_id: contactId,
+                            document_type: documentType,
+                            description: description,
+                            tags: tags
+                        };
+
+                        try {
+                            const result = await apiClient.uploadFile('/documents/upload', fileData);
+
+                            completed++;
+                            const percent = Math.round((completed / total) * 100);
+
+                            progressFill.style.width = `${percent}%`;
+                            progressText.textContent = `Uploading: ${percent}% (${completed}/${total} files)`;
+
+                            uploadDetails.innerHTML += `
+                                <div class="upload-success" style="color: var(--terminal-green); margin-top: 0.5rem;">
+                                    <i class="fas fa-check-circle"></i>
+                                    ${file.name} - Uploaded successfully (ID: ${result.document_id})
+                                </div>
+                            `;
+
+                        } catch (error) {
+                            console.error('Upload error:', error);
+                            uploadDetails.innerHTML += `
+                                <div class="upload-error" style="color: var(--terminal-red); margin-top: 0.5rem;">
+                                    <i class="fas fa-exclamation-triangle"></i>
+                                    ${file.name} - Failed to upload: ${error.message}
+                                </div>
+                            `;
+                        }
+                    }
+
+                    progressFill.style.width = '100%';
+                    progressText.textContent = 'Upload Complete';
+
+                    notificationManager.show(`Upload completed! ${completed}/${total} files uploaded successfully.`, 'success');
+
+                    // Clear form
+                    this.selectedFiles = [];
+                    document.getElementById('selectedFiles').style.display = 'none';
+                    this.disableUploadButton();
+
+                    // Reload upload history
+                    this.loadUploadHistory();
+
+                } catch (error) {
+                    console.error('Upload error:', error);
+                    notificationManager.show(`Upload failed: ${error.message}`, 'error');
+                } finally {
+                    this.isUploading = false;
+                    loadingManager.setLoading(uploadBtn, false);
+                }
+            }
+
+            async loadUploadHistory() {
+                const uploadHistory = document.getElementById('uploadHistory');
+
+                try {
+                    // This would typically call an API endpoint to get recent uploads
+                    // For now, we'll show a placeholder
+                    uploadHistory.innerHTML = `
+                        <div style="text-align: center; padding: 2rem; color: var(--text-secondary);">
+                            <i class="fas fa-info-circle" style="font-size: 2rem; margin-bottom: 1rem;"></i>
+                            <p>Upload history will be available after your first upload.</p>
+                            <p>Recent uploads will appear here with document details and status.</p>
+                        </div>
+                    `;
+                } catch (error) {
+                    console.error('Error loading upload history:', error);
+                    uploadHistory.innerHTML = `
+                        <div class="error-container">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <span>Unable to load upload history.</span>
+                        </div>
+                    `;
+                }
+            }
+
+            formatFileSize(bytes) {
+                if (bytes === 0) return '0 Bytes';
+                const k = 1024;
+                const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+                const i = Math.floor(Math.log(bytes) / Math.log(k));
+                return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+            }
+        }
+
+        // Initialize the uploader when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            window.documentUploader = new DocumentUploader();
+        });
+    </script>
+</body>
+</html>
