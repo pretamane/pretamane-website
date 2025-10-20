@@ -117,15 +117,36 @@ document.addEventListener('DOMContentLoaded', function() {
         // Close menu when clicking/touching on a link
         const navLinks = navMenu.querySelectorAll('a');
         navLinks.forEach(link => {
-            link.addEventListener('click', function(e) {
-                // Don't prevent default - let the link navigate
-                closeMenu();
-            });
+            // Track if touch event was handled to prevent duplicate click
+            let touchHandled = false;
+            
             link.addEventListener('touchend', function(e) {
-                // For mobile: prevent duplicate click event, but allow navigation
+                // For mobile: handle navigation explicitly
+                e.preventDefault();
                 e.stopPropagation();
+                touchHandled = true;
+                
+                // Close menu first
                 closeMenu();
-                // Let the browser handle the navigation
+                
+                // Navigate after a small delay to ensure menu closes smoothly
+                setTimeout(function() {
+                    const href = link.getAttribute('href');
+                    if (href && href !== '#') {
+                        window.location.href = href;
+                    }
+                    touchHandled = false;
+                }, 100);
+            });
+            
+            link.addEventListener('click', function(e) {
+                // If touch was already handled, prevent duplicate navigation
+                if (touchHandled) {
+                    e.preventDefault();
+                    return;
+                }
+                // Don't prevent default - let the link navigate on desktop
+                closeMenu();
             });
         });
         
