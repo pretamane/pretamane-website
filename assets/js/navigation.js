@@ -6,6 +6,11 @@ document.addEventListener('DOMContentLoaded', function() {
     let scrollTimeout;
 
     function setNavState(fadeOut) {
+        // Don't apply fade-out if mobile menu is open
+        if (nav.classList.contains('menu-open')) {
+            return;
+        }
+        
         if (fadeOut) {
             nav.classList.add('fade-out');
             nav.classList.remove('fade-in');
@@ -58,4 +63,71 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         lastTouchY = currentTouchY;
     });
+
+    // Mobile Menu Functionality
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const navMenu = document.getElementById('navMenu');
+    
+    if (mobileMenuBtn && navMenu) {
+        // Toggle menu function
+        function toggleMenu() {
+            navMenu.classList.toggle('active');
+            const icon = mobileMenuBtn.querySelector('i');
+            if (navMenu.classList.contains('active')) {
+                icon.className = 'fas fa-times';
+                // Add menu-open class to prevent nav from fading out
+                nav.classList.add('menu-open');
+                // Ensure nav is visible when menu opens
+                nav.classList.remove('fade-out');
+                nav.classList.add('fade-in');
+                // Add body scroll lock
+                document.body.style.overflow = 'hidden';
+            } else {
+                icon.className = 'fas fa-bars';
+                // Remove menu-open class
+                nav.classList.remove('menu-open');
+                // Restore body scroll
+                document.body.style.overflow = '';
+            }
+        }
+        
+        // Close menu function
+        function closeMenu() {
+            navMenu.classList.remove('active');
+            nav.classList.remove('menu-open');
+            const icon = mobileMenuBtn.querySelector('i');
+            icon.className = 'fas fa-bars';
+            document.body.style.overflow = '';
+        }
+        
+        // Event listeners
+        mobileMenuBtn.addEventListener('click', toggleMenu);
+        
+        // Close menu when clicking on a link
+        const navLinks = navMenu.querySelectorAll('a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', closeMenu);
+        });
+        
+        // Close menu when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!nav.contains(event.target) && navMenu.classList.contains('active')) {
+                closeMenu();
+            }
+        });
+        
+        // Close menu on escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape' && navMenu.classList.contains('active')) {
+                closeMenu();
+            }
+        });
+        
+        // Close menu when resizing to desktop view
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768 && navMenu.classList.contains('active')) {
+                closeMenu();
+            }
+        });
+    }
 });

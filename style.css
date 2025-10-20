@@ -572,6 +572,13 @@ header {
                 transform: translateY(0);
                 opacity: 1;
             }
+            
+            /* Ensure nav is always visible when menu is open */
+            .nav.fade-out.menu-open {
+                transform: translateY(0) !important;
+                opacity: 1 !important;
+            }
+            
             /* Container adjustments */
             .container {
                 padding: 0 15px;
@@ -598,7 +605,7 @@ header {
             }
             
             .nav-menu.active {
-                display: flex;
+                display: flex !important;
             }
             
             .nav-menu li {
