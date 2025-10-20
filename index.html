@@ -962,8 +962,6 @@
         // Navigation scroll effect with Flutter-like animation
         document.addEventListener('DOMContentLoaded', function() {
             const nav = document.querySelector('.nav');
-            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-            const navMenu = document.getElementById('navMenu');
             let lastScrollY = window.scrollY;
             let ticking = false;
             let scrollTimeout;
@@ -984,9 +982,6 @@
                     if (scrollDelta > 0 && scrollSpeed > 0.1) { // Scrolling down fast
                         nav.classList.add('fade-out');
                         nav.classList.remove('fade-in');
-                        if (navMenu.classList.contains('active')) {
-                            closeMenu();
-                        }
                     } else if (scrollDelta < 0) { // Scrolling up
                         nav.classList.remove('fade-out');
                         nav.classList.add('fade-in');
@@ -1020,56 +1015,6 @@
                         nav.classList.add('fade-in');
                     }
                 }, 800);
-            });
-
-            // Mobile menu functionality
-            function toggleMenu() {
-                navMenu.classList.toggle('active');
-                const icon = mobileMenuBtn.querySelector('i');
-                if (navMenu.classList.contains('active')) {
-                    icon.className = 'fas fa-times';
-                    document.body.style.overflow = 'hidden';
-                } else {
-                    icon.className = 'fas fa-bars';
-                    document.body.style.overflow = '';
-                }
-            }
-
-            function closeMenu() {
-                navMenu.classList.remove('active');
-                const icon = mobileMenuBtn.querySelector('i');
-                icon.className = 'fas fa-bars';
-                document.body.style.overflow = '';
-            }
-
-            // Mobile menu event listeners
-            mobileMenuBtn.addEventListener('click', function(e) {
-                e.stopPropagation();
-                toggleMenu();
-            });
-
-            navMenu.addEventListener('click', function(e) {
-                if (e.target.tagName === 'A') {
-                    setTimeout(closeMenu, 100);
-                }
-            });
-
-            document.addEventListener('click', function(e) {
-                if (!navMenu.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
-                    closeMenu();
-                }
-            });
-
-            window.addEventListener('resize', function() {
-                if (window.innerWidth > 768 && navMenu.classList.contains('active')) {
-                    closeMenu();
-                }
-            });
-
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape' && navMenu.classList.contains('active')) {
-                    closeMenu();
-                }
             });
 
             // Handle touch events for mobile devices
