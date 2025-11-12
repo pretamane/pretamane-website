@@ -1,0 +1,17 @@
+# Cloudflare Pages Wrangler Configuration
+# Copy this to wrangler.toml and fill in your Account ID
+
+name = "thaw-zin-portfolio"
+compatibility_date = "2024-11-12"
+
+# Get your Account ID from Cloudflare Dashboard
+# https://dash.cloudflare.com → Select any domain → Right sidebar
+account_id = "YOUR_ACCOUNT_ID_HERE"
+
+# Pages configuration
+pages_build_output_dir = "."
+
+# Optional: Environment variables
+# [vars]
+# ENVIRONMENT = "production"
+
