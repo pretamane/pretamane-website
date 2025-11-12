@@ -21,4 +21,5 @@ jobs:
           projectName: thaw-zin-portfolio
           directory: .
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+          wranglerVersion: "3"
 
