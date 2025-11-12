@@ -18,17 +18,17 @@ jobs:
         run: |
           # Check if essential files exist
           if [ ! -f "index.html" ]; then
-            echo "❌ Error: index.html not found!"
+            echo " Error: index.html not found!"
             exit 1
           fi
           
           # Check for basic HTML structure
           if ! grep -q "<html" index.html; then
-            echo "❌ Error: index.html missing HTML structure"
+            echo " Error: index.html missing HTML structure"
             exit 1
           fi
           
-          echo "✅ Website validation passed"
+          echo " Website validation passed"
 
   deploy-to-s3:
     name: Deploy to AWS S3
@@ -59,7 +59,7 @@ jobs:
             --exclude '.gitignore' \
             --exclude 'README.md'
           
-          echo "✅ Deployment completed successfully"
+          echo " Deployment completed successfully"
 
       - name: Invalidate CloudFront cache
         run: |

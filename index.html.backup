@@ -218,7 +218,7 @@
         }
         
         .skill-list li:before {
-            content: "❯";
+            content: "";
             color: var(--terminal-green);
             font-weight: bold;
             display: inline-block;

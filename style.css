@@ -216,6 +216,20 @@ header {
             font-size: 3rem;
             color: var(--accent-blue);
             box-shadow: 0 0 20px rgba(89, 184, 255, 0.3);
+            overflow: hidden; /* Clip image to circular shape */
+            position: relative; /* For proper image positioning */
+        }
+        
+        /* Ensure embedded image fills the circular frame */
+        .profile-img img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            display: block;
+            position: absolute; /* Fill the container completely */
+            top: 0;
+            left: 0;
         }
         
         h1 {
@@ -335,7 +349,7 @@ header {
         }
         
         .skill-list li:before {
-            content: "❯";
+            content: "";
             color: var(--terminal-green);
             font-weight: bold;
             display: inline-block;
