@@ -1,4 +1,4 @@
-# Pretamane AWS Builder Challenge Website
+# Thaw Zin - Portfolio Website
 
 ## Architecture
 - **Frontend**: Static HTML/CSS/JS hosted on AWS S3

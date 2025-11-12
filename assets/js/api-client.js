@@ -1,4 +1,4 @@
-// API Client Library for Pretamane Backend Integration
+// API Client Library for Thaw Zin Portfolio Backend Integration
 // Centralized API calls, error handling, and loading states
 
 class ApiClient {

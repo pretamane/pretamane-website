@@ -104,7 +104,7 @@ async function handleFormSubmit(event) {
         service: document.getElementById('service').value || 'Not specified',
         budget: document.getElementById('budget').value || 'Not specified',
         message: document.getElementById('message').value.trim(),
-        source: 'pretamane-website',
+        source: 'thaw-zin-portfolio',
         timestamp: new Date().toISOString(),
         userAgent: navigator.userAgent,
         pageUrl: window.location.href
