@@ -4,26 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thaw Zin - Junior Cloud Engineer</title>
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiIgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIj4KICA8cmVjdCB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIGZpbGw9IiMwZDExMTciLz4KICA8dGV4dCB4PSIxNiIgeT0iMjIiIGZvbnQtZmFtaWx5PSJtb25vc3BhY2UiIGZvbnQtc2l6ZT0iMTYiIGZvbnQtd2VpZ2h0PSJib2xkIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjZmZjYzY2Ij50ejwvdGV4dD4KPC9zdmc+">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiIgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIj48cmVjdCB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIGZpbGw9IiMyNDI3M2EiLz48dGV4dCB4PSIxNiIgeT0iMjIiIGZvbnQtZmFtaWx5PSJtb25vc3BhY2UiIGZvbnQtc2l6ZT0iMTYiIGZvbnQtd2VpZ2h0PSJib2xkIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjZWVkNDlmIj50ejwvdGV4dD48L3N2Zz4=">
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="shortcut icon" href="/favicon.ico">
     <link rel="apple-touch-icon" href="/favicon.ico">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --bg-primary: #0d1117;
-            --bg-secondary: #161b22;
-            --bg-tertiary: #21262d;
-            --text-primary: #e6edf3;
-            --text-secondary: #7d8590;
-            --accent: #ffcc66;
-            --accent-blue: #59b8ff;
-            --accent-green: #7ce38b;
-            --accent-orange: #ffae57;
-            --accent-purple: #d2a8ff;
-            --terminal-green: #3fb950;
-            --terminal-red: #ff7b72;
-            --border: #30363d;
+            /* Catppuccin Macchiato Color Palette */
+            --bg-primary: #24273a;
+            --bg-secondary: #1e2030;
+            --bg-tertiary: #363a4f;
+            --text-primary: #cad3f5;
+            --text-secondary: #b8c0e0;
+            --accent: #eed49f;
+            --accent-blue: #8aadf4;
+            --accent-green: #a6da95;
+            --accent-orange: #f5a97f;
+            --accent-purple: #c6a0f6;
+            --terminal-green: #a6da95;
+            --terminal-red: #ed8796;
+            --border: #494d64;
+            /* Additional Catppuccin colors */
+            --accent-teal: #8bd5ca;
+            --accent-pink: #f5bde6;
+            --accent-lavender: #b7bdf8;
+            --accent-sapphire: #7dc4e4;
+            --accent-sky: #91d7e3;
         }
         
         * {
@@ -133,6 +140,50 @@
             width: 100%;
         }
         
+        /* CV Download Button - Uses submit-btn color palette */
+        .nav-cv-btn {
+            background: linear-gradient(135deg, var(--accent-blue), var(--terminal-green));
+            color: var(--bg-primary);
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .nav-cv-btn::after {
+            display: none;
+        }
+        
+        .nav-cv-btn:hover {
+            transform: translateY(-2px);
+            color: var(--bg-primary);
+        }
+        
+        .nav-cv-btn:hover::after {
+            display: none;
+        }
+        
+        .nav-cv-btn i,
+        .nav-cv-btn span {
+            color: var(--bg-primary);
+        }
+        
+        .nav-cv-btn i {
+            font-size: 0.9rem;
+        }
+        
+        .nav-cv-btn:hover i,
+        .nav-cv-btn:hover span {
+            color: var(--bg-primary);
+        }
+        
         /* Mobile menu button */
         .mobile-menu-btn {
             display: none;
@@ -177,7 +228,7 @@
         .terminal-button {
             width: 12px;
             height: 12px;
-            border-radius: 50%;
+            border-radius: 2px;
             margin-right: 8px;
         }
         
@@ -259,6 +310,91 @@
         
         .contact-item:hover {
             color: var(--accent-blue);
+        }
+        
+        /* Copy button styling */
+        .copyable-item {
+            position: relative;
+        }
+        
+        .copyable-text {
+            cursor: pointer;
+            user-select: none;
+        }
+        
+        .copy-btn {
+            display: none;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            color: var(--accent-blue);
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: scale(0.8);
+            margin-left: 0.5rem;
+            font-size: 0.75rem;
+        }
+        
+        .copy-btn:hover {
+            background: var(--accent-blue);
+            color: var(--bg-primary);
+            border-color: var(--accent-blue);
+            transform: scale(1);
+        }
+        
+        .copy-btn:active {
+            transform: scale(0.95);
+        }
+        
+        .copyable-item:hover .copy-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            opacity: 1;
+            transform: scale(1);
+        }
+        
+        .copy-btn i {
+            font-size: 0.7rem;
+        }
+        
+        /* Toast notification */
+        .copy-toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--bg-tertiary);
+            color: var(--terminal-green);
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--terminal-green);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            z-index: 10000;
+            display: none;
+            align-items: center;
+            gap: 0.5rem;
+            animation: slideIn 0.3s ease;
+        }
+        
+        .copy-toast.show {
+            display: flex;
+        }
+        
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        .copy-toast i {
+            color: var(--terminal-green);
         }
         
         /* Section styling */
@@ -670,6 +806,11 @@
                 background: var(--bg-tertiary);
             }
             
+            .nav-cv-btn {
+                padding: 0.75rem 1.5rem;
+                width: auto;
+            }
+            
             .nav-container {
                 position: relative;
             }
@@ -683,6 +824,19 @@
                 width: 120px;
                 height: 120px;
                 font-size: 2.5rem;
+            }
+            
+            /* Copy button mobile adjustments */
+            .copy-btn {
+                padding: 0.3rem 0.6rem;
+                font-size: 0.7rem;
+            }
+            
+            .copy-toast {
+                bottom: 1rem;
+                right: 1rem;
+                left: 1rem;
+                padding: 0.75rem 1rem;
             }
         }
         
@@ -720,6 +874,52 @@
         ::-webkit-scrollbar-thumb:hover {
             background: var(--accent-blue);
         }
+        
+        /* GitHub Box Hover Effect */
+        #github-box:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            border-color: var(--accent-blue);
+        }
+        
+        #github-box:hover h2 {
+            color: var(--accent-blue);
+        }
+        
+        /* Facebook Box Hover Effect */
+        #facebook-box:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            border-color: var(--accent-blue);
+        }
+        
+        #facebook-box:hover h2 {
+            color: var(--accent-blue);
+        }
+        
+        /* Linktree Box Hover Effect */
+        #linktree-box:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            border-color: var(--accent-blue);
+        }
+        
+        #linktree-box:hover h2 {
+            color: var(--accent-blue);
+        }
+        
+        @media (max-width: 768px) {
+            #visitor-ip .container {
+                flex-direction: column;
+                flex-wrap: wrap;
+            }
+            
+            #ip-box, #github-box, #facebook-box, #linktree-box {
+                flex: 1 1 100%;
+                max-width: 100%;
+                width: 100%;
+            }
+        }
     </style>
 </head>
 <body>
@@ -739,6 +939,10 @@
                 <li><a href="/pages/upload.html">Upload</a></li>
                 <li><a href="/pages/search.html">Search</a></li>
                 <li><a href="/pages/health.html">Health</a></li>
+                <li><a href="/assets/docs/cv.pdf" download="Thaw-Zin-CV.pdf" class="nav-cv-btn">
+                    <i class="fas fa-download"></i>
+                    <span>Download CV</span>
+                </a></li>
             </ul>
         </div>
     </nav>
@@ -756,13 +960,19 @@
             <h1>Thaw Zin <span class="cursor"></span></h1>
             <div class="tagline">junior_cloud_engineer.sh</div>
             <div class="contact-info">
-                <div class="contact-item">
+                <div class="contact-item copyable-item">
                     <i class="fas fa-envelope"></i>
-                    <span>thawzin252467@gmail.com</span>
+                    <span class="copyable-text" data-copy="thawzin252467@gmail.com">thawzin252467@gmail.com</span>
+                    <button class="copy-btn" title="Copy email" aria-label="Copy email">
+                        <i class="fas fa-copy"></i>
+                    </button>
                 </div>
-                <div class="contact-item">
+                <div class="contact-item copyable-item">
                     <i class="fas fa-phone"></i>
-                    <span>+95 9799745068</span>
+                    <span class="copyable-text" data-copy="+95 9 7997 450 68">+95 9 7997 450 68</span>
+                    <button class="copy-btn" title="Copy phone number" aria-label="Copy phone number">
+                        <i class="fas fa-copy"></i>
+                    </button>
                 </div>
                 <div class="contact-item">
                     <i class="fas fa-map-marker-alt"></i>
@@ -773,11 +983,32 @@
     </header>
 
         <section id="visitor-ip" style="margin-top:2rem;">
-            <div class="container">
-                <div id="ip-box" style="background:var(--bg-tertiary);border-radius:8px;padding:1.5rem 2rem;margin-bottom:2rem;box-shadow:0 2px 8px rgba(0,0,0,0.12);border:1px solid var(--border);max-width:400px;">
-                    <h2 style="color:var(--accent);font-size:1.2rem;margin-bottom:0.5rem;">Your Public IP Address</h2>
-                    <div id="visitor-ip-value" style="font-size:1.5rem;color:var(--text-primary);font-family:'Fira Code',monospace;">Loading...</div>
+            <div class="container" style="display:flex;flex-wrap:nowrap;gap:1rem;align-items:flex-start;">
+                <div id="ip-box" style="background:var(--bg-tertiary);border-radius:8px;padding:1rem 1.5rem;margin-bottom:2rem;box-shadow:0 2px 8px rgba(0,0,0,0.12);border:1px solid var(--border);flex:1;min-width:0;">
+                    <h2 style="color:var(--accent);font-size:1rem;margin-bottom:0.5rem;">Your Public IP Address</h2>
+                    <div id="visitor-ip-value" style="font-size:1.2rem;color:var(--text-primary);font-family:'Fira Code',monospace;word-break:break-all;">Loading...</div>
                 </div>
+                <a href="https://github.com/pretamane" target="_blank" rel="noopener noreferrer" id="github-box" style="background:var(--bg-tertiary);border-radius:8px;padding:1rem 1.5rem;margin-bottom:2rem;box-shadow:0 2px 8px rgba(0,0,0,0.12);border:1px solid var(--border);flex:1;min-width:0;text-decoration:none;display:block;transition:transform 0.3s ease,box-shadow 0.3s ease;">
+                    <h2 style="color:var(--accent);font-size:1rem;margin-bottom:0.5rem;display:flex;align-items:center;gap:0.5rem;">
+                        <i class="fab fa-github"></i>
+                        GitHub
+                    </h2>
+                    <div style="font-size:1.2rem;color:var(--text-primary);font-family:'Fira Code',monospace;word-break:break-all;">@pretamane</div>
+                </a>
+                <a href="https://www.facebook.com/lilpreta2k77" target="_blank" rel="noopener noreferrer" id="facebook-box" style="background:var(--bg-tertiary);border-radius:8px;padding:1rem 1.5rem;margin-bottom:2rem;box-shadow:0 2px 8px rgba(0,0,0,0.12);border:1px solid var(--border);flex:1;min-width:0;text-decoration:none;display:block;transition:transform 0.3s ease,box-shadow 0.3s ease;">
+                    <h2 style="color:var(--accent);font-size:1rem;margin-bottom:0.5rem;display:flex;align-items:center;gap:0.5rem;">
+                        <i class="fab fa-facebook"></i>
+                        Facebook
+                    </h2>
+                    <div style="font-size:1.2rem;color:var(--text-primary);font-family:'Fira Code',monospace;word-break:break-all;">@lilpreta2k77</div>
+                </a>
+                <a href="https://linktr.ee/pretamane" target="_blank" rel="noopener noreferrer" id="linktree-box" style="background:var(--bg-tertiary);border-radius:8px;padding:1rem 1.5rem;margin-bottom:2rem;box-shadow:0 2px 8px rgba(0,0,0,0.12);border:1px solid var(--border);flex:1;min-width:0;text-decoration:none;display:block;transition:transform 0.3s ease,box-shadow 0.3s ease;">
+                    <h2 style="color:var(--accent);font-size:1rem;margin-bottom:0.5rem;display:flex;align-items:center;gap:0.5rem;">
+                        <i class="fas fa-link"></i>
+                        Linktree
+                    </h2>
+                    <div style="font-size:1.2rem;color:var(--text-primary);font-family:'Fira Code',monospace;word-break:break-all;">@pretamane</div>
+                </a>
             </div>
         </section>
 
@@ -964,7 +1195,7 @@
     <footer>
         <div class="container">
             <p>Thaw Zin - Junior Cloud Engineer & IT Support Specialist</p>
-            <p>Email: thawzin252467@gmail.com | Phone: +95 9799745068</p>
+            <p>Email: thawzin252467@gmail.com | Phone: +95 9 7997 450 68</p>
             <div class="domain-note">
                 <i class="fas fa-globe"></i> Domain: pretamane.com (Registered and Configured)
             </div>
@@ -1069,6 +1300,80 @@
             .catch(() => {
                 document.getElementById('visitor-ip-value').textContent = 'Unavailable';
             });
+    </script>
+    
+    <!-- Copy to clipboard functionality -->
+    <div id="copy-toast" class="copy-toast">
+        <i class="fas fa-check-circle"></i>
+        <span>Copied to clipboard!</span>
+    </div>
+    
+    <script>
+        // Copy to clipboard functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const copyButtons = document.querySelectorAll('.copy-btn');
+            const copyToast = document.getElementById('copy-toast');
+            
+            copyButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    const copyableItem = this.closest('.copyable-item');
+                    const copyableText = copyableItem.querySelector('.copyable-text');
+                    const textToCopy = copyableText.getAttribute('data-copy') || copyableText.textContent.trim();
+                    
+                    // Use Clipboard API if available
+                    if (navigator.clipboard && navigator.clipboard.writeText) {
+                        navigator.clipboard.writeText(textToCopy).then(() => {
+                            showToast();
+                        }).catch(() => {
+                            fallbackCopy(textToCopy);
+                        });
+                    } else {
+                        fallbackCopy(textToCopy);
+                    }
+                });
+            });
+            
+            // Also allow clicking on the text itself to copy
+            const copyableTexts = document.querySelectorAll('.copyable-text');
+            copyableTexts.forEach(text => {
+                text.addEventListener('click', function() {
+                    const copyBtn = this.closest('.copyable-item').querySelector('.copy-btn');
+                    if (copyBtn) {
+                        copyBtn.click();
+                    }
+                });
+            });
+            
+            function fallbackCopy(text) {
+                const textArea = document.createElement('textarea');
+                textArea.value = text;
+                textArea.style.position = 'fixed';
+                textArea.style.left = '-999999px';
+                textArea.style.top = '-999999px';
+                document.body.appendChild(textArea);
+                textArea.focus();
+                textArea.select();
+                
+                try {
+                    document.execCommand('copy');
+                    showToast();
+                } catch (err) {
+                    console.error('Failed to copy text:', err);
+                }
+                
+                document.body.removeChild(textArea);
+            }
+            
+            function showToast() {
+                copyToast.classList.add('show');
+                setTimeout(() => {
+                    copyToast.classList.remove('show');
+                }, 2000);
+            }
+        });
     </script>
         <script src="/main.js"></script>
         <script src="/assets/js/navigation.js"></script>

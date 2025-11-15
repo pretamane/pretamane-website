@@ -29,6 +29,10 @@
                 <li><a href="/pages/upload.html">Upload</a></li>
                 <li><a href="/pages/search.html">Search</a></li>
                 <li><a href="/pages/health.html">Health</a></li>
+                <li><a href="/assets/docs/cv.pdf" download="Thaw-Zin-CV.pdf" class="nav-cv-btn">
+                    <i class="fas fa-download"></i>
+                    <span>Download CV</span>
+                </a></li>
             </ul>
         </div>
     </nav>
@@ -169,7 +173,7 @@
     <footer>
         <div class="container">
             <p>Thaw Zin - Junior Cloud Engineer & IT Support Specialist</p>
-            <p>Email: thawzin252467@gmail.com | Phone: +95 9799745068</p>
+            <p>Email: thawzin252467@gmail.com | Phone: +95 9 7997 450 68</p>
             <div class="domain-note">
                 <i class="fas fa-globe"></i> Domain: pretamane.com (Registered and Configured)
             </div>
@@ -207,7 +211,7 @@
             initializeCharts() {
                 this.createChart('contactsChart', 'line', {
                     label: 'Contacts',
-                    color: '#59b8ff'
+                    color: '#8aadf4'
                 });
 
                 this.createChart('uploadsChart', 'bar', {
@@ -248,7 +252,7 @@
                             label: config.label,
                             data: [],
                             backgroundColor: this.getChartColors(type, config.color),
-                            borderColor: config.color || '#59b8ff',
+                            borderColor: config.color || '#8aadf4',
                             borderWidth: 2,
                             fill: type === 'line' ? false : true
                         }]
@@ -262,12 +266,12 @@
                     line: [primaryColor],
                     bar: [primaryColor],
                     doughnut: [
-                        '#3fb950', '#ff7b72', '#f39c12', '#59b8ff',
-                        '#d2a8ff', '#7ce38b', '#ffae57', '#e67e22'
+                        '#a6da95', '#ed8796', '#f5a97f', '#8aadf4',
+                        '#c6a0f6', '#a6da95', '#f5a97f', '#ee99a0'
                     ],
                     pie: [
-                        '#3fb950', '#ff7b72', '#f39c12', '#59b8ff',
-                        '#d2a8ff', '#7ce38b', '#ffae57', '#e67e22'
+                        '#a6da95', '#ed8796', '#f5a97f', '#8aadf4',
+                        '#c6a0f6', '#a6da95', '#f5a97f', '#ee99a0'
                     ]
                 };
 

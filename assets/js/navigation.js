@@ -120,8 +120,41 @@ document.addEventListener('DOMContentLoaded', function() {
             // Track if touch event was handled to prevent duplicate click
             let touchHandled = false;
             
+            // Check if this is the CV download button
+            const isCVDownloadBtn = link.classList.contains('nav-cv-btn');
+            
             link.addEventListener('touchend', function(e) {
-                // For mobile: handle navigation explicitly
+                // Special handling for CV download button
+                if (isCVDownloadBtn) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    touchHandled = true;
+                    
+                    // Close menu first
+                    closeMenu();
+                    
+                    // Trigger download after menu closes
+                    setTimeout(function() {
+                        const href = link.getAttribute('href');
+                        const downloadAttr = link.getAttribute('download');
+                        
+                        // Create a temporary anchor element for reliable download
+                        const tempLink = document.createElement('a');
+                        tempLink.href = href;
+                        if (downloadAttr) {
+                            tempLink.download = downloadAttr;
+                        }
+                        tempLink.style.display = 'none';
+                        document.body.appendChild(tempLink);
+                        tempLink.click();
+                        document.body.removeChild(tempLink);
+                        
+                        touchHandled = false;
+                    }, 150);
+                    return;
+                }
+                
+                // For other links: handle navigation explicitly
                 e.preventDefault();
                 e.stopPropagation();
                 touchHandled = true;
@@ -145,6 +178,15 @@ document.addEventListener('DOMContentLoaded', function() {
                     e.preventDefault();
                     return;
                 }
+                
+                // For CV download button on mobile, ensure download works
+                if (isCVDownloadBtn && window.innerWidth <= 768) {
+                    // Let the download attribute handle it, but close menu
+                    closeMenu();
+                    // Don't prevent default to allow download
+                    return;
+                }
+                
                 // Don't prevent default - let the link navigate on desktop
                 closeMenu();
             });

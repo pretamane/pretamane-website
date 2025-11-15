@@ -13,19 +13,26 @@
     <style>
         :root {
             --container-max-width: 1160px;
-            --bg-primary: #0d1117;
-            --bg-secondary: #161b22;
-            --bg-tertiary: #21262d;
-            --text-primary: #e6edf3;
-            --text-secondary: #7d8590;
-            --accent: #ffcc66;
-            --accent-blue: #59b8ff;
-            --accent-green: #7ce38b;
-            --accent-orange: #ffae57;
-            --accent-purple: #d2a8ff;
-            --terminal-green: #3fb950;
-            --terminal-red: #ff7b72;
-            --border: #30363d;
+            /* Catppuccin Macchiato Color Palette */
+            --bg-primary: #24273a;
+            --bg-secondary: #1e2030;
+            --bg-tertiary: #363a4f;
+            --text-primary: #cad3f5;
+            --text-secondary: #b8c0e0;
+            --accent: #eed49f;
+            --accent-blue: #8aadf4;
+            --accent-green: #a6da95;
+            --accent-orange: #f5a97f;
+            --accent-purple: #c6a0f6;
+            --terminal-green: #a6da95;
+            --terminal-red: #ed8796;
+            --border: #494d64;
+            /* Additional Catppuccin colors */
+            --accent-teal: #8bd5ca;
+            --accent-pink: #f5bde6;
+            --accent-lavender: #b7bdf8;
+            --accent-sapphire: #7dc4e4;
+            --accent-sky: #91d7e3;
         }
         
         * {
@@ -65,7 +72,7 @@
         .terminal-button {
             width: 12px;
             height: 12px;
-            border-radius: 50%;
+            border-radius: 2px;
         }
         
         /* Navigation */
@@ -168,7 +175,7 @@
         .terminal-button {
             width: 12px;
             height: 12px;
-            border-radius: 50%;
+            border-radius: 2px;
         }
         
         .terminal-button.close {
@@ -510,6 +517,10 @@
                 <li><a href="/pages/upload.html">Upload</a></li>
                 <li><a href="/pages/search.html">Search</a></li>
                 <li><a href="/pages/health.html">Health</a></li>
+                <li><a href="/assets/docs/cv.pdf" download="Thaw-Zin-CV.pdf" class="nav-cv-btn">
+                    <i class="fas fa-download"></i>
+                    <span>Download CV</span>
+                </a></li>
             </ul>
         </div>
     </nav>
@@ -683,7 +694,7 @@
     <footer>
         <div class="container">
             <p>Thaw Zin - Junior Cloud Engineer & IT Support Specialist</p>
-            <p>Email: thawzin252467@gmail.com | Phone: +95 9799745068</p>
+            <p>Email: thawzin252467@gmail.com | Phone: +95 9 7997 450 68</p>
             <div class="domain-note" style="background: rgba(89, 184, 255, 0.1); display: inline-block; padding: 0.5rem 1rem; border-radius: 4px; margin-top: 1rem; color: var(--accent-blue); border: 1px solid var(--border);">
                 <i class="fas fa-globe"></i> Domain: pretamane.com (Registered and Configured)
             </div>
