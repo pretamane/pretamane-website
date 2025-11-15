@@ -22,4 +22,6 @@ jobs:
           directory: .
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
           wranglerVersion: "3"
+          production: true
+          branch: main
 
