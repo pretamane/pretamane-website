@@ -13,6 +13,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Verify files exist
+        run: |
+          echo "Verifying required files..."
+          ls -la index.html
+          ls -la style.css
+          echo "Files verified successfully"
+
       - name: Deploy to Cloudflare Pages
         uses: cloudflare/pages-action@v1
         with:
