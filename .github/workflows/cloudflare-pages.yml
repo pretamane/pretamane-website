@@ -18,7 +18,15 @@ jobs:
           echo "Verifying required files..."
           ls -la index.html
           ls -la style.css
-          echo "Files verified successfully"
+          echo "Verifying CV PDF file..."
+          if [ -f "assets/docs/cv.pdf" ]; then
+            ls -lh assets/docs/cv.pdf
+            echo "CV PDF file verified successfully"
+          else
+            echo "ERROR: CV PDF file not found!"
+            exit 1
+          fi
+          echo "All files verified successfully"
 
       - name: Deploy to Cloudflare Pages
         uses: cloudflare/pages-action@v1
