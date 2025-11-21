@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document Search - Thaw Zin | Search Engine</title>
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiIgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIj4KICA8cmVjdCB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIGZpbGw9IiMwZDExMTciLz4KICA8dGV4dCB4PSIxNiIgeT0iMjIiIGZvbnQtZmFtaWx5PSJtb25vc3BhY2UiIGZvbnQtc2l6ZT0iMTYiIGZvbnQtd2VpZ2h0PSJib2xkIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjZmZjYzY2Ij50ejwvdGV4dD4KPC9zdmc+">
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiIgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIj4KICA8cmVjdCB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIGZpbGw9IiMwZDExMTciLz4KICA8dGV4dCB4PSIxNiIgeT0iMjIiIGZvbnQtZmFtaWx5PSJtb25vc3BhY2UiIGZvbnQtc2l6ZT0iMTYiIGZvbnQtd2VpZ2h0PSJib2xkIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjZmZjYzY2Ij50ejwvdGV4dD4KPC9zdmc+">
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="shortcut icon" href="/favicon.ico">
     <link rel="apple-touch-icon" href="/favicon.ico">
@@ -12,29 +14,9 @@
     <link rel="stylesheet" href="/style.css">
     <link rel="stylesheet" href="/assets/css/api-pages.css">
 </head>
+
 <body class="api-page">
-    <nav class="nav">
-        <div class="container nav-container">
-            <a href="/" class="nav-logo">tz</a>
-            <button class="mobile-menu-btn" id="mobileMenuBtn">
-                <i class="fas fa-bars"></i>
-            </button>
-            <ul class="nav-menu" id="navMenu">
-                <li><a href="/">Home</a></li>
-                <li><a href="/pages/about.html">About</a></li>
-                <li><a href="/pages/services.html">Services</a></li>
-                <li><a href="/pages/contact.html">Contact</a></li>
-                <li><a href="/pages/analytics.html">Analytics</a></li>
-                <li><a href="/pages/upload.html">Upload</a></li>
-                <li><a href="/pages/search.html">Search</a></li>
-                <li><a href="/pages/health.html">Health</a></li>
-                <li><a href="/assets/docs/cv.pdf" download="Thaw-Zin-CV.pdf" class="nav-cv-btn">
-                    <i class="fas fa-download"></i>
-                    <span>Download CV</span>
-                </a></li>
-            </ul>
-        </div>
-    </nav>
+    <!-- Navigation will be injected by nav-component.js -->
 
     <header>
         <div class="terminal-bar">
@@ -45,7 +27,8 @@
         <div class="container header-content">
             <h1>Document Search Engine</h1>
             <div class="tagline">search_engine.sh</div>
-            <p class="description">Search through your documents with advanced filters, full-text search, and intelligent results</p>
+            <p class="description">Search through your documents with advanced filters, full-text search, and
+                intelligent results</p>
         </div>
     </header>
 
@@ -71,7 +54,8 @@
                     <div class="search-input-container">
                         <div class="search-input-wrapper">
                             <i class="fas fa-search search-icon"></i>
-                            <input type="text" id="searchQuery" class="search-input" placeholder="Enter search terms, keywords, or phrases..." autocomplete="off">
+                            <input type="text" id="searchQuery" class="search-input"
+                                placeholder="Enter search terms, keywords, or phrases..." autocomplete="off">
                             <button id="clearSearch" class="clear-search-btn" style="display: none;">
                                 <i class="fas fa-times"></i>
                             </button>
@@ -108,7 +92,8 @@
 
                         <div class="form-group">
                             <label for="filterContactId" class="form-label">Contact ID</label>
-                            <input type="text" id="filterContactId" class="form-input" placeholder="e.g., contact_123456_abc123">
+                            <input type="text" id="filterContactId" class="form-input"
+                                placeholder="e.g., contact_123456_abc123">
                         </div>
 
                         <div class="form-group">
@@ -164,7 +149,8 @@
 
                     <div class="results-per-page">
                         <label for="resultsPerPage" class="form-label">Results per page:</label>
-                        <select id="resultsPerPage" class="form-select" style="width: auto; display: inline-block; margin-left: 0.5rem;">
+                        <select id="resultsPerPage" class="form-select"
+                            style="width: auto; display: inline-block; margin-left: 0.5rem;">
                             <option value="10">10</option>
                             <option value="25" selected>25</option>
                             <option value="50">50</option>
@@ -210,7 +196,8 @@
         <!-- No Results -->
         <div class="api-card" id="noResultsCard" style="display: none;">
             <div style="text-align: center; padding: 3rem;">
-                <i class="fas fa-search" style="font-size: 4rem; color: var(--text-secondary); margin-bottom: 1rem;"></i>
+                <i class="fas fa-search"
+                    style="font-size: 4rem; color: var(--text-secondary); margin-bottom: 1rem;"></i>
                 <h3 style="color: var(--accent-blue); margin-bottom: 1rem;">No Results Found</h3>
                 <p style="color: var(--text-secondary); margin-bottom: 2rem;">
                     Try adjusting your search terms or filters to find what you're looking for.
@@ -727,19 +714,19 @@
 
         // Global search functions
         window.documentSearch = {
-            quickSearch: function(query) {
+            quickSearch: function (query) {
                 if (window.searchApp) {
                     window.searchApp.quickSearch(query);
                 }
             },
 
-            viewDocument: function(documentId) {
+            viewDocument: function (documentId) {
                 if (window.searchApp) {
                     window.searchApp.viewDocument(documentId);
                 }
             },
 
-            downloadDocument: function(documentId) {
+            downloadDocument: function (documentId) {
                 if (window.searchApp) {
                     window.searchApp.downloadDocument(documentId);
                 }
@@ -747,9 +734,15 @@
         };
 
         // Initialize the search application when DOM is loaded
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             window.searchApp = new DocumentSearch();
         });
     </script>
+    <script src="/assets/js/nav-component.js"></script>
+    <script src="/assets/js/navigation.js"></script>
+    <!-- Google Identity Services -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script src="/assets/js/google-auth.js"></script>
 </body>
+
 </html>

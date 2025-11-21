@@ -17,3 +17,8 @@ Place your CV PDF file here with the filename: `cv.pdf`
 - Filename: `cv.pdf`
 - Location: `pretamane-website/assets/docs/cv.pdf`
 
+
+
+
+
+

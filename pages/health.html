@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>System Health - Thaw Zin | Backend Monitoring</title>
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiIgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIj4KICA8cmVjdCB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIGZpbGw9IiMwZDExMTciLz4KICA8dGV4dCB4PSIxNiIgeT0iMjIiIGZvbnQtZmFtaWx5PSJtb25vc3BhY2UiIGZvbnQtc2l6ZT0iMTYiIGZvbnQtd2VpZ2h0PSJib2xkIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjZmZjYzY2Ij50ejwvdGV4dD4KPC9zdmc+">
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiIgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIj4KICA8cmVjdCB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIGZpbGw9IiMwZDExMTciLz4KICA8dGV4dCB4PSIxNiIgeT0iMjIiIGZvbnQtZmFtaWx5PSJtb25vc3BhY2UiIGZvbnQtc2l6ZT0iMTYiIGZvbnQtd2VpZ2h0PSJib2xkIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjZmZjYzY2Ij50ejwvdGV4dD4KPC9zdmc+">
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="shortcut icon" href="/favicon.ico">
     <link rel="apple-touch-icon" href="/favicon.ico">
@@ -12,29 +14,9 @@
     <link rel="stylesheet" href="/style.css">
     <link rel="stylesheet" href="/assets/css/api-pages.css">
 </head>
+
 <body class="api-page">
-    <nav class="nav">
-        <div class="container nav-container">
-            <a href="/" class="nav-logo">tz</a>
-            <button class="mobile-menu-btn" id="mobileMenuBtn">
-                <i class="fas fa-bars"></i>
-            </button>
-            <ul class="nav-menu" id="navMenu">
-                <li><a href="/">Home</a></li>
-                <li><a href="/pages/about.html">About</a></li>
-                <li><a href="/pages/services.html">Services</a></li>
-                <li><a href="/pages/contact.html">Contact</a></li>
-                <li><a href="/pages/analytics.html">Analytics</a></li>
-                <li><a href="/pages/upload.html">Upload</a></li>
-                <li><a href="/pages/search.html">Search</a></li>
-                <li><a href="/pages/health.html">Health</a></li>
-                <li><a href="/assets/docs/cv.pdf" download="Thaw-Zin-CV.pdf" class="nav-cv-btn">
-                    <i class="fas fa-download"></i>
-                    <span>Download CV</span>
-                </a></li>
-            </ul>
-        </div>
-    </nav>
+    <!-- Navigation will be injected by nav-component.js -->
 
     <header>
         <div class="terminal-bar">
@@ -45,7 +27,8 @@
         <div class="container header-content">
             <h1>System Health Monitor</h1>
             <div class="tagline">health_check.sh</div>
-            <p class="description">Real-time monitoring of your backend services, database connectivity, and system performance</p>
+            <p class="description">Real-time monitoring of your backend services, database connectivity, and system
+                performance</p>
         </div>
     </header>
 
@@ -491,7 +474,7 @@
         }
 
         // Global function for refresh button
-        window.refreshAllData = function() {
+        window.refreshAllData = function () {
             if (window.healthMonitor) {
                 window.healthMonitor.loadAllData();
                 notificationManager.show('Data refreshed', 'success', 2000);
@@ -499,16 +482,22 @@
         };
 
         // Initialize the health monitor when DOM is loaded
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             window.healthMonitor = new HealthMonitor();
         });
 
         // Clean up on page unload
-        window.addEventListener('beforeunload', function() {
+        window.addEventListener('beforeunload', function () {
             if (window.healthMonitor) {
                 window.healthMonitor.stopAutoRefresh();
             }
         });
     </script>
+    <script src="/assets/js/nav-component.js"></script>
+    <script src="/assets/js/navigation.js"></script>
+    <!-- Google Identity Services -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script src="/assets/js/google-auth.js"></script>
 </body>
+
 </html>

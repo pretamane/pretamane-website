@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Analytics Dashboard - Thaw Zin | Data Insights</title>
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiIgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIj4KICA8cmVjdCB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIGZpbGw9IiMwZDExMTciLz4KICA8dGV4dCB4PSIxNiIgeT0iMjIiIGZvbnQtZmFtaWx5PSJtb25vc3BhY2UiIGZvbnQtc2l6ZT0iMTYiIGZvbnQtd2VpZ2h0PSJib2xkIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjZmZjYzY2Ij50ejwvdGV4dD4KPC9zdmc+">
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiIgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIj4KICA8cmVjdCB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIGZpbGw9IiMwZDExMTciLz4KICA8dGV4dCB4PSIxNiIgeT0iMjIiIGZvbnQtZmFtaWx5PSJtb25vc3BhY2UiIGZvbnQtc2l6ZT0iMTYiIGZvbnQtd2VpZ2h0PSJib2xkIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjZmZjYzY2Ij50ejwvdGV4dD4KPC9zdmc+">
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="shortcut icon" href="/favicon.ico">
     <link rel="apple-touch-icon" href="/favicon.ico">
@@ -13,29 +15,9 @@
     <link rel="stylesheet" href="/assets/css/api-pages.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
+
 <body class="api-page">
-    <nav class="nav">
-        <div class="container nav-container">
-            <a href="/" class="nav-logo">tz</a>
-            <button class="mobile-menu-btn" id="mobileMenuBtn">
-                <i class="fas fa-bars"></i>
-            </button>
-            <ul class="nav-menu" id="navMenu">
-                <li><a href="/">Home</a></li>
-                <li><a href="/pages/about.html">About</a></li>
-                <li><a href="/pages/services.html">Services</a></li>
-                <li><a href="/pages/contact.html">Contact</a></li>
-                <li><a href="/pages/analytics.html">Analytics</a></li>
-                <li><a href="/pages/upload.html">Upload</a></li>
-                <li><a href="/pages/search.html">Search</a></li>
-                <li><a href="/pages/health.html">Health</a></li>
-                <li><a href="/assets/docs/cv.pdf" download="Thaw-Zin-CV.pdf" class="nav-cv-btn">
-                    <i class="fas fa-download"></i>
-                    <span>Download CV</span>
-                </a></li>
-            </ul>
-        </div>
-    </nav>
+    <!-- Navigation will be injected by nav-component.js -->
 
     <header>
         <div class="terminal-bar">
@@ -46,7 +28,8 @@
         <div class="container header-content">
             <h1>Analytics Dashboard</h1>
             <div class="tagline">analytics_insights.sh</div>
-            <p class="description">Comprehensive insights into your backend system performance, user activity, and document processing metrics</p>
+            <p class="description">Comprehensive insights into your backend system performance, user activity, and
+                document processing metrics</p>
         </div>
     </header>
 
@@ -519,7 +502,7 @@
                 let html = '';
                 metrics.forEach(metric => {
                     const trendClass = metric.trend === 'positive' ? 'positive' :
-                                     metric.trend === 'negative' ? 'negative' : 'neutral';
+                        metric.trend === 'negative' ? 'negative' : 'neutral';
 
                     html += `
                         <tr>
@@ -572,7 +555,7 @@
                 let html = '';
                 insights.forEach(insight => {
                     const icon = insight.type === 'success' ? 'fa-check-circle' :
-                               insight.type === 'warning' ? 'fa-exclamation-triangle' : 'fa-info-circle';
+                        insight.type === 'warning' ? 'fa-exclamation-triangle' : 'fa-info-circle';
 
                     html += `
                         <div class="insight-item" style="display: flex; align-items: start; gap: 1rem; padding: 1rem; background: var(--bg-secondary); border-radius: 8px; margin-bottom: 1rem; border-left: 4px solid var(--${insight.type === 'success' ? 'terminal-green' : insight.type === 'warning' ? 'accent-orange' : 'accent-blue'});">
@@ -661,37 +644,43 @@
         }
 
         // Global functions
-        window.refreshAnalytics = function() {
+        window.refreshAnalytics = function () {
             if (window.analyticsDashboard) {
                 window.analyticsDashboard.loadAnalyticsData();
                 notificationManager.show('Analytics refreshed', 'success', 2000);
             }
         };
 
-        window.exportAnalytics = function() {
+        window.exportAnalytics = function () {
             if (window.analyticsDashboard) {
                 window.analyticsDashboard.exportAnalytics();
             }
         };
 
         // Initialize the analytics dashboard when DOM is loaded
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             window.analyticsDashboard = new AnalyticsDashboard();
         });
 
         // Clean up on page unload
-        window.addEventListener('beforeunload', function() {
+        window.addEventListener('beforeunload', function () {
             if (window.analyticsDashboard) {
                 window.analyticsDashboard.stopAutoRefresh();
             }
         });
 
         // Time range change handler
-        document.getElementById('timeRange')?.addEventListener('change', function() {
+        document.getElementById('timeRange')?.addEventListener('change', function () {
             console.log('Time range changed to:', this.value);
             // In a real implementation, you would reload data for the new time range
             notificationManager.show(`Time range changed to: ${this.value}`, 'info', 2000);
         });
     </script>
+    <script src="/assets/js/nav-component.js"></script>
+    <script src="/assets/js/navigation.js"></script>
+    <!-- Google Identity Services -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script src="/assets/js/google-auth.js"></script>
 </body>
+
 </html>

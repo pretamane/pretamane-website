@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Services - Thaw Zin | Cloud Engineering Solutions</title>
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiIgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIj4KICA8cmVjdCB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIGZpbGw9IiMwZDExMTciLz4KICA8dGV4dCB4PSIxNiIgeT0iMjIiIGZvbnQtZmFtaWx5PSJtb25vc3BhY2UiIGZvbnQtc2l6ZT0iMTYiIGZvbnQtd2VpZ2h0PSJib2xkIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjZmZjYzY2Ij50ejwvdGV4dD4KPC9zdmc+">
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiIgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIj4KICA8cmVjdCB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIGZpbGw9IiMwZDExMTciLz4KICA8dGV4dCB4PSIxNiIgeT0iMjIiIGZvbnQtZmFtaWx5PSJtb25vc3BhY2UiIGZvbnQtc2l6ZT0iMTYiIGZvbnQtd2VpZ2h0PSJib2xkIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjZmZjYzY2Ij50ejwvdGV4dD4KPC9zdmc+">
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="shortcut icon" href="/favicon.ico">
     <link rel="apple-touch-icon" href="/favicon.ico">
@@ -34,14 +36,14 @@
             --accent-sapphire: #7dc4e4;
             --accent-sky: #91d7e3;
         }
-        
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: 'Fira Code', 'Cascadia Code', 'Monaco', 'Consolas', monospace;
         }
-        
+
         body {
             background-color: var(--bg-primary);
             color: var(--text-primary);
@@ -50,7 +52,7 @@
             margin: 0;
             padding-top: 0;
         }
-        
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -74,7 +76,7 @@
             height: 12px;
             border-radius: 2px;
         }
-        
+
         /* Navigation */
         .nav {
             background: var(--bg-secondary);
@@ -85,37 +87,37 @@
             z-index: 100;
             margin-top: -2rem;
         }
-        
+
         .nav-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
-        
+
         .nav-logo {
             color: var(--accent);
             font-size: 1.5rem;
             font-weight: bold;
             text-decoration: none;
         }
-        
+
         .nav-menu {
             display: flex;
             list-style: none;
             gap: 2rem;
         }
-        
+
         .nav-menu a {
             color: var(--text-secondary);
             text-decoration: none;
             transition: color 0.3s;
             position: relative;
         }
-        
+
         .nav-menu a:hover {
             color: var(--accent-blue);
         }
-        
+
         .nav-menu a::after {
             content: '';
             position: absolute;
@@ -126,11 +128,11 @@
             background: var(--accent-blue);
             transition: width 0.3s;
         }
-        
+
         .nav-menu a:hover::after {
             width: 100%;
         }
-        
+
         /* Mobile menu button */
         .mobile-menu-btn {
             display: none;
@@ -141,11 +143,11 @@
             cursor: pointer;
             padding: 0.5rem;
         }
-        
+
         .mobile-menu-btn:hover {
             color: var(--accent-blue);
         }
-        
+
         /* Header styling */
         header {
             background: linear-gradient(to bottom, var(--bg-primary), var(--bg-secondary));
@@ -171,49 +173,49 @@
             justify-content: flex-start;
             border: 1px solid var(--border);
         }
-        
+
         .terminal-button {
             width: 12px;
             height: 12px;
             border-radius: 2px;
         }
-        
+
         .terminal-button.close {
             background-color: var(--terminal-red);
         }
-        
+
         .terminal-button.minimize {
             background-color: var(--accent-orange);
         }
-        
+
         .terminal-button.maximize {
             background-color: var(--terminal-green);
         }
-        
+
         .header-content {
             margin-top: 4rem;
             padding: 2rem;
         }
-        
+
         h1 {
             font-size: 2.5rem;
             margin-bottom: 0.5rem;
             color: var(--accent);
             text-shadow: 0 0 10px rgba(255, 204, 102, 0.3);
         }
-        
+
         .tagline {
             font-size: 1.2rem;
             color: var(--accent-blue);
             margin-bottom: 1rem;
         }
-        
+
         /* Section styling */
         section {
             padding: 3rem 0;
             border-bottom: 1px solid var(--border);
         }
-        
+
         .section-title {
             margin-bottom: 2rem;
             color: var(--accent);
@@ -221,21 +223,21 @@
             display: inline-block;
             padding-left: 15px;
         }
-        
+
         .section-title::before {
             content: '>';
             position: absolute;
             left: 0;
             color: var(--terminal-green);
         }
-        
+
         /* Services grid */
         .services-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 2rem;
         }
-        
+
         .service-card {
             background: var(--bg-tertiary);
             border-radius: 8px;
@@ -245,7 +247,7 @@
             position: relative;
             overflow: hidden;
         }
-        
+
         .service-card::before {
             content: 'ls -la';
             position: absolute;
@@ -255,38 +257,38 @@
             color: var(--accent-blue);
             font-size: 0.9rem;
         }
-        
+
         .service-card:hover {
             transform: translateY(-10px);
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
             border-color: var(--accent-blue);
         }
-        
+
         .service-icon {
             font-size: 3rem;
             color: var(--accent-blue);
             margin-bottom: 1rem;
             text-align: center;
         }
-        
+
         .service-card h3 {
             color: var(--accent);
             margin-bottom: 1rem;
             text-align: center;
             font-size: 1.5rem;
         }
-        
+
         .service-card p {
             color: var(--text-secondary);
             margin-bottom: 1.5rem;
             line-height: 1.7;
         }
-        
+
         .service-features {
             list-style: none;
             margin-bottom: 1.5rem;
         }
-        
+
         .service-features li {
             padding: 0.5rem 0;
             color: var(--text-secondary);
@@ -294,13 +296,13 @@
             align-items: center;
             gap: 0.5rem;
         }
-        
+
         .service-features li::before {
             content: "";
             color: var(--terminal-green);
             font-weight: bold;
         }
-        
+
         .service-price {
             text-align: center;
             font-size: 1.2rem;
@@ -311,7 +313,7 @@
             background: rgba(124, 227, 139, 0.1);
             border-radius: 4px;
         }
-        
+
         /* Code snippet */
         .code-snippet {
             background: var(--bg-tertiary);
@@ -322,31 +324,31 @@
             overflow-x: auto;
             font-family: 'Fira Code', monospace;
         }
-        
+
         .code-snippet pre {
             margin: 0;
         }
-        
+
         .code-comment {
             color: var(--text-secondary);
         }
-        
+
         .code-keyword {
             color: var(--accent-purple);
         }
-        
+
         .code-function {
             color: var(--accent-blue);
         }
-        
+
         .code-string {
             color: var(--accent-green);
         }
-        
+
         .code-variable {
             color: var(--accent-orange);
         }
-        
+
         /* Footer */
         footer {
             background: var(--bg-secondary);
@@ -356,25 +358,26 @@
             margin-top: 2rem;
             border-top: 1px solid var(--border);
         }
-        
+
         /* Responsive design */
         @media (max-width: 768px) {
+
             /* Container adjustments */
             .container {
                 padding: 0 15px;
             }
-            
+
             /* Navigation improvements */
             .mobile-menu-btn {
                 display: block;
             }
-            
+
             /* Ensure nav is always visible in mobile when menu is open */
             .nav.fade-out.menu-open {
                 opacity: 1 !important;
                 transform: translateY(0) !important;
             }
-            
+
             .nav-menu {
                 display: none;
                 position: absolute;
@@ -389,141 +392,121 @@
                 box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
                 z-index: 1000;
             }
-            
+
             .nav-menu.active {
                 display: flex !important;
             }
-            
+
             .nav-menu li {
                 width: 100%;
             }
-            
+
             .nav-menu a {
                 display: block;
                 padding: 1rem 2rem;
                 border-bottom: 1px solid var(--border);
                 transition: background-color 0.3s ease;
             }
-            
+
             .nav-menu a:hover {
                 background: var(--bg-tertiary);
             }
-            
+
             .nav-container {
                 position: relative;
             }
-            
+
             /* Header adjustments */
             h1 {
                 font-size: 1.8rem;
                 line-height: 1.2;
             }
-            
+
             h2 {
                 font-size: 1.5rem;
             }
-            
+
             h3 {
                 font-size: 1.3rem;
             }
-            
+
             .tagline {
                 font-size: 1rem;
             }
-            
+
             /* Section adjustments */
             section {
                 padding: 2rem 0;
             }
-            
+
             .section-title {
                 font-size: 1.4rem;
                 margin-bottom: 1.5rem;
             }
-            
+
             /* Grid adjustments */
             .services-grid {
                 grid-template-columns: 1fr;
                 gap: 1.5rem;
             }
-            
+
             /* Card adjustments */
             .service-card {
                 padding: 1.5rem;
             }
-            
+
             .service-card h3 {
                 font-size: 1.2rem;
             }
-            
+
             /* Code snippet adjustments */
             .code-snippet {
                 padding: 1rem;
                 font-size: 0.85rem;
                 overflow-x: auto;
             }
-            
+
             /* Footer adjustments */
             footer {
                 padding: 1.5rem 0;
                 font-size: 0.9rem;
             }
-            
+
             /* Text adjustments */
             p {
                 font-size: 0.95rem;
                 line-height: 1.5;
             }
-            
+
             ul li {
                 font-size: 0.9rem;
                 margin-bottom: 0.3rem;
             }
         }
-        
+
         /* Extra small devices */
         @media (max-width: 480px) {
             h1 {
                 font-size: 1.6rem;
             }
-            
+
             .container {
                 padding: 0 10px;
             }
-            
+
             .nav-menu a {
                 padding: 0.8rem 1.5rem;
             }
-            
+
             .service-card {
                 padding: 1rem;
             }
         }
     </style>
 </head>
+
 <body>
-    <nav class="nav">
-        <div class="container nav-container">
-            <a href="/" class="nav-logo">tz</a>
-            <button class="mobile-menu-btn" id="mobileMenuBtn">
-                <i class="fas fa-bars"></i>
-            </button>
-            <ul class="nav-menu" id="navMenu">
-                <li><a href="/">Home</a></li>
-                <li><a href="/pages/about.html">About</a></li>
-                <li><a href="/pages/services.html">Services</a></li>
-                <li><a href="/pages/contact.html">Contact</a></li>
-                <li><a href="/pages/analytics.html">Analytics</a></li>
-                <li><a href="/pages/upload.html">Upload</a></li>
-                <li><a href="/pages/search.html">Search</a></li>
-                <li><a href="/pages/health.html">Health</a></li>
-                <li><a href="/assets/docs/cv.pdf" download="Thaw-Zin-CV.pdf" class="nav-cv-btn">
-                    <i class="fas fa-download"></i>
-                    <span>Download CV</span>
-                </a></li>
-            </ul>
-        </div>
-    </nav>
+    <!-- Navigation will be injected by nav-component.js -->
 
     <header>
         <div class="container">
@@ -567,7 +550,8 @@
                         <i class="fas fa-cloud"></i>
                     </div>
                     <h3>AWS Infrastructure Setup</h3>
-                    <p>Complete AWS infrastructure design and implementation for your business needs. From basic EC2 instances to complex multi-tier architectures.</p>
+                    <p>Complete AWS infrastructure design and implementation for your business needs. From basic EC2
+                        instances to complex multi-tier architectures.</p>
                     <ul class="service-features">
                         <li>EC2 Instance Configuration</li>
                         <li>S3 Bucket Setup & Management</li>
@@ -578,13 +562,14 @@
                     </ul>
                     <div class="service-price">Starting from $500</div>
                 </div>
-                
+
                 <div class="service-card">
                     <div class="service-icon">
                         <i class="fas fa-chart-line"></i>
                     </div>
                     <h3>Monitoring Solutions</h3>
-                    <p>Implement comprehensive monitoring solutions using Zabbix and AWS CloudWatch to ensure optimal performance and uptime.</p>
+                    <p>Implement comprehensive monitoring solutions using Zabbix and AWS CloudWatch to ensure optimal
+                        performance and uptime.</p>
                     <ul class="service-features">
                         <li>Zabbix Server Installation</li>
                         <li>Custom Dashboard Creation</li>
@@ -595,13 +580,14 @@
                     </ul>
                     <div class="service-price">Starting from $300</div>
                 </div>
-                
+
                 <div class="service-card">
                     <div class="service-icon">
                         <i class="fas fa-code-branch"></i>
                     </div>
                     <h3>DevOps Implementation</h3>
-                    <p>Set up CI/CD pipelines and DevOps practices to streamline your development and deployment processes.</p>
+                    <p>Set up CI/CD pipelines and DevOps practices to streamline your development and deployment
+                        processes.</p>
                     <ul class="service-features">
                         <li>Jenkins Pipeline Setup</li>
                         <li>Git Repository Configuration</li>
@@ -612,13 +598,14 @@
                     </ul>
                     <div class="service-price">Starting from $400</div>
                 </div>
-                
+
                 <div class="service-card">
                     <div class="service-icon">
                         <i class="fas fa-server"></i>
                     </div>
                     <h3>System Administration</h3>
-                    <p>Comprehensive IT support and system administration services for Windows, macOS, and Linux environments.</p>
+                    <p>Comprehensive IT support and system administration services for Windows, macOS, and Linux
+                        environments.</p>
                     <ul class="service-features">
                         <li>Hardware Maintenance</li>
                         <li>Software Installation & Updates</li>
@@ -629,13 +616,14 @@
                     </ul>
                     <div class="service-price">Starting from $200</div>
                 </div>
-                
+
                 <div class="service-card">
                     <div class="service-icon">
                         <i class="fas fa-shield-alt"></i>
                     </div>
                     <h3>Security & Compliance</h3>
-                    <p>Implement security best practices and compliance measures for your cloud infrastructure and applications.</p>
+                    <p>Implement security best practices and compliance measures for your cloud infrastructure and
+                        applications.</p>
                     <ul class="service-features">
                         <li>Security Group Configuration</li>
                         <li>IAM Policy Management</li>
@@ -646,13 +634,14 @@
                     </ul>
                     <div class="service-price">Starting from $350</div>
                 </div>
-                
+
                 <div class="service-card">
                     <div class="service-icon">
                         <i class="fas fa-tools"></i>
                     </div>
                     <h3>Maintenance & Support</h3>
-                    <p>Ongoing maintenance and support services to ensure your infrastructure runs smoothly and efficiently.</p>
+                    <p>Ongoing maintenance and support services to ensure your infrastructure runs smoothly and
+                        efficiently.</p>
                     <ul class="service-features">
                         <li>Regular System Updates</li>
                         <li>Performance Optimization</li>
@@ -695,12 +684,17 @@
         <div class="container">
             <p>Thaw Zin - Junior Cloud Engineer & IT Support Specialist</p>
             <p>Email: thawzin252467@gmail.com | Phone: +95 9 7997 450 68</p>
-            <div class="domain-note" style="background: rgba(89, 184, 255, 0.1); display: inline-block; padding: 0.5rem 1rem; border-radius: 4px; margin-top: 1rem; color: var(--accent-blue); border: 1px solid var(--border);">
+            <div class="domain-note"
+                style="background: rgba(89, 184, 255, 0.1); display: inline-block; padding: 0.5rem 1rem; border-radius: 4px; margin-top: 1rem; color: var(--accent-blue); border: 1px solid var(--border);">
                 <i class="fas fa-globe"></i> Domain: pretamane.com (Registered and Configured)
             </div>
         </div>
     </footer>
+    <script src="/assets/js/nav-component.js"></script>
     <script src="/assets/js/navigation.js"></script>
+    <!-- Google Identity Services -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script src="/assets/js/google-auth.js"></script>
 </body>
-</html>
 
+</html>

@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cache Reload Test Page</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            min-height: 100vh;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 20px 0;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .test-section {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 10px;
+            border-left: 4px solid #4CAF50;
+        }
+        .timestamp {
+            font-family: 'Courier New', monospace;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .cache-info {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 5px;
+        }
+        .button:hover {
+            background: #45a049;
+        }
+        .instructions {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        .instructions ol {
+            line-height: 2;
+        }
+        .status {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 3px;
+            margin: 5px;
+            font-weight: bold;
+        }
+        .status.cached {
+            background: #ff9800;
+            color: white;
+        }
+        .status.fresh {
+            background: #4CAF50;
+            color: white;
+        }
+        code {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 Chrome Cache Reload Test Page</h1>
+        
+        <div class="test-section">
+            <h2>Test Information</h2>
+            <div class="timestamp">
+                <strong>Page Load Time:</strong> <span id="loadTime"></span>
+            </div>
+            <div class="timestamp">
+                <strong>Page Load Count:</strong> <span id="loadCount">1</span>
+            </div>
+            <div class="cache-info">
+                <strong>Cache Status:</strong> <span id="cacheStatus" class="status fresh">FRESH LOAD</span>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>Test Image (Cacheable Resource)</h2>
+            <p>This image will be cached. Check Network tab to see if it's served from cache.</p>
+            <img id="testImage" src="/assets/img/profile-tz.jpg" alt="Test Image" 
+                 onerror="this.src='https://via.placeholder.com/300x300/667eea/ffffff?text=Test+Image'" 
+                 style="max-width: 300px; border-radius: 10px; margin: 10px 0;">
+            <div class="timestamp">
+                <strong>Image Load Time:</strong> <span id="imageLoadTime"></span>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>JavaScript Cache Test</h2>
+            <p>This script generates a random number on each load. If you see the same number, it might be cached.</p>
+            <div class="timestamp">
+                <strong>Random Number:</strong> <span id="randomNumber"></span>
+            </div>
+            <button class="button" onclick="generateNewRandom()">Generate New Random Number</button>
+        </div>
+
+        <div class="instructions">
+            <h2>📋 How to Test Cache Behavior</h2>
+            <ol>
+                <li><strong>Open Chrome DevTools:</strong> Press <code>Ctrl+Shift+I</code> (or <code>F12</code>)</li>
+                <li><strong>Go to Network Tab:</strong> Click on "Network" in DevTools</li>
+                <li><strong>Enable Preserve Log:</strong> Check "Preserve log" checkbox</li>
+                <li><strong>Clear Network Log:</strong> Click the 🚫 icon to clear existing entries</li>
+                <li><strong>First Load (Normal Reload):</strong>
+                    <ul>
+                        <li>Press <code>Ctrl+R</code> (normal reload)</li>
+                        <li>Look at Network tab - check status codes</li>
+                        <li>Status <code>200</code> = Fresh load</li>
+                        <li>Status <code>304</code> = Served from cache (Not Modified)</li>
+                        <li>Size column shows <code>(disk cache)</code> or <code>(memory cache)</code> = Cached</li>
+                    </ul>
+                </li>
+                <li><strong>Hard Reload Test:</strong>
+                    <ul>
+                        <li>Press <code>Ctrl+Shift+R</code> (hard reload)</li>
+                        <li>Look at Network tab again</li>
+                        <li>All resources should show <code>200</code> status (not 304)</li>
+                        <li>Size column should show actual file sizes (not cache)</li>
+                        <li>Request Headers should include <code>Cache-Control: no-cache</code></li>
+                    </ul>
+                </li>
+                <li><strong>Verify in Headers:</strong>
+                    <ul>
+                        <li>Click on any resource in Network tab</li>
+                        <li>Go to "Headers" tab</li>
+                        <li>Look at "Request Headers" section</li>
+                        <li>Hard reload should show: <code>Cache-Control: no-cache</code> and <code>Pragma: no-cache</code></li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+
+        <div class="test-section">
+            <h2>What to Look For</h2>
+            <table style="width: 100%; border-collapse: collapse;">
+                <tr style="background: rgba(0,0,0,0.2);">
+                    <th style="padding: 10px; text-align: left;">Reload Type</th>
+                    <th style="padding: 10px; text-align: left;">Status Code</th>
+                    <th style="padding: 10px; text-align: left;">Size Column</th>
+                    <th style="padding: 10px; text-align: left;">Request Headers</th>
+                </tr>
+                <tr>
+                    <td style="padding: 10px;"><code>Ctrl+R</code> (Normal)</td>
+                    <td style="padding: 10px;">200 or 304</td>
+                    <td style="padding: 10px;">(disk cache) or (memory cache)</td>
+                    <td style="padding: 10px;">Normal headers, may include If-Modified-Since</td>
+                </tr>
+                <tr>
+                    <td style="padding: 10px;"><code>Ctrl+Shift+R</code> (Hard)</td>
+                    <td style="padding: 10px;">200 (always)</td>
+                    <td style="padding: 10px;">Actual file size (KB)</td>
+                    <td style="padding: 10px;"><code>Cache-Control: no-cache</code><br><code>Pragma: no-cache</code></td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="test-section">
+            <h2>Console Commands for Verification</h2>
+            <p>Open Console tab in DevTools and run these commands:</p>
+            <div class="cache-info">
+                <code>performance.getEntriesByType('resource').filter(r => r.name.includes('test-cache-reload')).map(r => ({name: r.name, transferSize: r.transferSize, decodedBodySize: r.decodedBodySize, fromCache: r.transferSize === 0}))</code>
+            </div>
+            <p><strong>Explanation:</strong></p>
+            <ul>
+                <li><code>transferSize === 0</code> = Served from cache</li>
+                <li><code>transferSize > 0</code> = Downloaded from server (cache bypassed)</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Track page loads
+        let loadCount = parseInt(localStorage.getItem('pageLoadCount') || '0') + 1;
+        localStorage.setItem('pageLoadCount', loadCount.toString());
+        
+        // Display load time
+        const loadTime = new Date().toLocaleString();
+        document.getElementById('loadTime').textContent = loadTime;
+        document.getElementById('loadCount').textContent = loadCount;
+        
+        // Generate random number
+        const randomNum = Math.floor(Math.random() * 1000000);
+        document.getElementById('randomNumber').textContent = randomNum;
+        localStorage.setItem('lastRandom', randomNum.toString());
+        
+        // Check if this is a cached load
+        const lastLoadTime = localStorage.getItem('lastLoadTime');
+        if (lastLoadTime) {
+            const timeDiff = Date.now() - parseInt(lastLoadTime);
+            if (timeDiff < 1000) {
+                document.getElementById('cacheStatus').textContent = 'POSSIBLY CACHED';
+                document.getElementById('cacheStatus').className = 'status cached';
+            }
+        }
+        localStorage.setItem('lastLoadTime', Date.now().toString());
+        
+        // Track image load
+        const testImage = document.getElementById('testImage');
+        testImage.onload = function() {
+            document.getElementById('imageLoadTime').textContent = new Date().toLocaleTimeString();
+        };
+        
+        function generateNewRandom() {
+            const newRandom = Math.floor(Math.random() * 1000000);
+            document.getElementById('randomNumber').textContent = newRandom;
+            localStorage.setItem('lastRandom', newRandom.toString());
+        }
+        
+        // Log to console for verification
+        console.log('=== Cache Reload Test Page ===');
+        console.log('Load Time:', loadTime);
+        console.log('Load Count:', loadCount);
+        console.log('Random Number:', randomNum);
+        console.log('Check Network tab to verify cache behavior');
+        console.log('Press Ctrl+R for normal reload, Ctrl+Shift+R for hard reload');
+    </script>
+</body>
+</html>
+
+
+
+
+
+

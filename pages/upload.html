@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document Upload - Thaw Zin | File Management</title>
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiIgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIj4KICA8cmVjdCB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIGZpbGw9IiMwZDExMTciLz4KICA8dGV4dCB4PSIxNiIgeT0iMjIiIGZvbnQtZmFtaWx5PSJtb25vc3BhY2UiIGZvbnQtc2l6ZT0iMTYiIGZvbnQtd2VpZ2h0PSJib2xkIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjZmZjYzY2Ij50ejwvdGV4dD4KPC9zdmc+">
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiIgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIj4KICA8cmVjdCB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIGZpbGw9IiMwZDExMTciLz4KICA8dGV4dCB4PSIxNiIgeT0iMjIiIGZvbnQtZmFtaWx5PSJtb25vc3BhY2UiIGZvbnQtc2l6ZT0iMTYiIGZvbnQtd2VpZ2h0PSJib2xkIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjZmZjYzY2Ij50ejwvdGV4dD4KPC9zdmc+">
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="shortcut icon" href="/favicon.ico">
     <link rel="apple-touch-icon" href="/favicon.ico">
@@ -12,29 +14,9 @@
     <link rel="stylesheet" href="/style.css">
     <link rel="stylesheet" href="/assets/css/api-pages.css">
 </head>
+
 <body class="api-page">
-    <nav class="nav">
-        <div class="container nav-container">
-            <a href="/" class="nav-logo">tz</a>
-            <button class="mobile-menu-btn" id="mobileMenuBtn">
-                <i class="fas fa-bars"></i>
-            </button>
-            <ul class="nav-menu" id="navMenu">
-                <li><a href="/">Home</a></li>
-                <li><a href="/pages/about.html">About</a></li>
-                <li><a href="/pages/services.html">Services</a></li>
-                <li><a href="/pages/contact.html">Contact</a></li>
-                <li><a href="/pages/analytics.html">Analytics</a></li>
-                <li><a href="/pages/upload.html">Upload</a></li>
-                <li><a href="/pages/search.html">Search</a></li>
-                <li><a href="/pages/health.html">Health</a></li>
-                <li><a href="/assets/docs/cv.pdf" download="Thaw-Zin-CV.pdf" class="nav-cv-btn">
-                    <i class="fas fa-download"></i>
-                    <span>Download CV</span>
-                </a></li>
-            </ul>
-        </div>
-    </nav>
+    <!-- Navigation will be injected by nav-component.js -->
 
     <header>
         <div class="terminal-bar">
@@ -45,7 +27,9 @@
         <div class="container header-content">
             <h1>Document Upload Center</h1>
             <div class="tagline">upload_manager.sh</div>
-            <p class="description">Upload documents, files, and attachments to your backend system with real-time progress tracking</p>
+            <p class="description">Upload documents, files, and attachments to your backend system with real-time
+                progress
+                tracking</p>
         </div>
     </header>
 
@@ -79,7 +63,8 @@
                             Supported formats: PDF, DOC, DOCX, TXT, CSV, XLSX, PPTX, JPG, PNG, GIF
                             <br>Maximum file size: 50MB
                         </div>
-                        <input type="file" id="fileInput" class="file-input" multiple accept=".pdf,.doc,.docx,.txt,.csv,.xlsx,.pptx,.jpg,.jpeg,.png,.gif">
+                        <input type="file" id="fileInput" class="file-input" multiple
+                            accept=".pdf,.doc,.docx,.txt,.csv,.xlsx,.pptx,.jpg,.jpeg,.png,.gif">
                     </div>
 
                     <!-- Selected Files List -->
@@ -102,7 +87,8 @@
                     <div class="form-grid">
                         <div class="form-group">
                             <label for="contactId" class="form-label">Contact ID *</label>
-                            <input type="text" id="contactId" name="contactId" class="form-input" placeholder="e.g., contact_123456_abc123" required>
+                            <input type="text" id="contactId" name="contactId" class="form-input"
+                                placeholder="e.g., contact_123456_abc123" required>
                             <div class="form-hint">Use the contact ID from your contact form submission</div>
                         </div>
 
@@ -123,12 +109,14 @@
 
                         <div class="form-group">
                             <label for="description" class="form-label">Description</label>
-                            <textarea id="description" name="description" class="form-textarea" placeholder="Brief description of the document content..."></textarea>
+                            <textarea id="description" name="description" class="form-textarea"
+                                placeholder="Brief description of the document content..."></textarea>
                         </div>
 
                         <div class="form-group">
                             <label for="tags" class="form-label">Tags</label>
-                            <input type="text" id="tags" name="tags" class="form-input" placeholder="e.g., urgent, review, final">
+                            <input type="text" id="tags" name="tags" class="form-input"
+                                placeholder="e.g., urgent, review, final">
                             <div class="form-hint">Separate multiple tags with commas</div>
                         </div>
                     </div>
@@ -149,7 +137,8 @@
                             <div class="progress-text" id="progressText">Uploading: 0%</div>
                         </div>
 
-                        <div id="uploadDetails" class="upload-details" style="margin-top: 1rem; color: var(--text-secondary);">
+                        <div id="uploadDetails" class="upload-details"
+                            style="margin-top: 1rem; color: var(--text-secondary);">
                             <!-- Upload details will be populated by JavaScript -->
                         </div>
                     </div>
@@ -194,7 +183,8 @@
 
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
                 <div class="help-step">
-                    <div style="display: flex; align-items: center; gap: 0.5rem; color: var(--terminal-green); font-weight: bold; margin-bottom: 0.5rem;">
+                    <div
+                        style="display: flex; align-items: center; gap: 0.5rem; color: var(--terminal-green); font-weight: bold; margin-bottom: 0.5rem;">
                         <i class="fas fa-1"></i>
                         <span>Select Files</span>
                     </div>
@@ -204,7 +194,8 @@
                 </div>
 
                 <div class="help-step">
-                    <div style="display: flex; align-items: center; gap: 0.5rem; color: var(--terminal-green); font-weight: bold; margin-bottom: 0.5rem;">
+                    <div
+                        style="display: flex; align-items: center; gap: 0.5rem; color: var(--terminal-green); font-weight: bold; margin-bottom: 0.5rem;">
                         <i class="fas fa-2"></i>
                         <span>Enter Details</span>
                     </div>
@@ -214,7 +205,8 @@
                 </div>
 
                 <div class="help-step">
-                    <div style="display: flex; align-items: center; gap: 0.5rem; color: var(--terminal-green); font-weight: bold; margin-bottom: 0.5rem;">
+                    <div
+                        style="display: flex; align-items: center; gap: 0.5rem; color: var(--terminal-green); font-weight: bold; margin-bottom: 0.5rem;">
                         <i class="fas fa-3"></i>
                         <span>Upload</span>
                     </div>
@@ -545,9 +537,15 @@
         }
 
         // Initialize the uploader when DOM is loaded
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             window.documentUploader = new DocumentUploader();
         });
     </script>
+    <script src="/assets/js/nav-component.js"></script>
+    <script src="/assets/js/navigation.js"></script>
+    <!-- Google Identity Services -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script src="/assets/js/google-auth.js"></script>
 </body>
+
 </html>
