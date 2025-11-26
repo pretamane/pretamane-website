@@ -49,8 +49,8 @@ If you need to deploy immediately while setting up the connection:
 
 ```bash
 cd /home/guest/aws-to-opensource-local/pretamane-website
-export CLOUDFLARE_API_TOKEN="owrWwvDMbECEVtA3NTwItOxguTO1Zsb_PiQNeTRe"
-export CLOUDFLARE_ACCOUNT_ID="d4cce76b1a4f91b589da3c2d627308ff"
+export CLOUDFLARE_API_TOKEN="<YOUR_CLOUDFLARE_API_TOKEN>"
+export CLOUDFLARE_ACCOUNT_ID="<YOUR_CLOUDFLARE_ACCOUNT_ID>"
 
 # Deploy using Wrangler
 npx wrangler pages deploy . \
@@ -79,6 +79,8 @@ After connecting:
 - **Gap**: Several commits behind
 
 Once connected, the latest code will be automatically deployed.
+
+
 
 
 

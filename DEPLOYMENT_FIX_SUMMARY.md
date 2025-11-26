@@ -20,8 +20,8 @@ Performed **manual deployment** using Wrangler CLI to immediately fix the issue:
 
 ```bash
 cd pretamane-website
-export CLOUDFLARE_API_TOKEN="owrWwvDMbECEVtA3NTwItOxguTO1Zsb_PiQNeTRe"
-export CLOUDFLARE_ACCOUNT_ID="d4cce76b1a4f91b589da3c2d627308ff"
+export CLOUDFLARE_API_TOKEN="<YOUR_CLOUDFLARE_API_TOKEN>"
+export CLOUDFLARE_ACCOUNT_ID="<YOUR_CLOUDFLARE_ACCOUNT_ID>"
 wrangler pages deploy . --project-name=thaw-zin-portfolio
 ```
 
@@ -122,6 +122,8 @@ The CV PDF deployment issue has been **resolved**. The file is now correctly dep
 
 **Fix Applied:** $(date)  
 **Status:** ✅ RESOLVED - CV PDF correctly deployed
+
+
 
 
 

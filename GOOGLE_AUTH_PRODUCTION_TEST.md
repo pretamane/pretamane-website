@@ -239,3 +239,5 @@ console.log(typeof google !== 'undefined' ? 'Google API loaded' : 'Google API NO
 
 **Estimated Setup Time:** 10 minutes (including Google Console configuration)
 
+
+
